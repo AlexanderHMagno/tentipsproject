@@ -19,23 +19,23 @@ export function Menu() {
   return (
     <Menubar className="rounded-none border-b border-none px-2 lg:px-4">
       <MenubarMenu>
-        <MenubarTrigger className="font-bold">Music</MenubarTrigger>
+        <MenubarTrigger className="font-bold">Community</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem>About Music</MenubarItem>
+          <MenubarItem>About Community</MenubarItem>
           <MenubarSeparator />
           <MenubarItem>
             Preferences... <MenubarShortcut>⌘,</MenubarShortcut>
           </MenubarItem>
           <MenubarSeparator />
           <MenubarItem>
-            Hide Music... <MenubarShortcut>⌘H</MenubarShortcut>
+            Hide Community... <MenubarShortcut>⌘H</MenubarShortcut>
           </MenubarItem>
           <MenubarItem>
             Hide Others... <MenubarShortcut>⇧⌘H</MenubarShortcut>
           </MenubarItem>
           <MenubarShortcut />
           <MenubarItem>
-            Quit Music <MenubarShortcut>⌘Q</MenubarShortcut>
+            Quit Community <MenubarShortcut>⌘Q</MenubarShortcut>
           </MenubarItem>
         </MenubarContent>
       </MenubarMenu>

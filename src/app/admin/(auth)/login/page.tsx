@@ -13,11 +13,15 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useSession, signIn } from "next-auth/react"
+import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const { data: session, status } = useSession();
-
-  
+  const router = useRouter();
+  const { status } = useSession();
+  if(status === 'authenticated') {
+    router.push("/community");
+    return;
+  }
   
   return (
     <Card>

@@ -1,3 +1,4 @@
+'use client';
 import { Metadata } from "next"
 import Image from "next/image"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
@@ -17,47 +18,46 @@ import { Menu } from "@/components/menu"
 import { PodcastEmptyPlaceholder } from "@/components/podcast-empty-placeholder"
 import { Sidebar } from "@/components/sidebar"
 import { listenNowAlbums, madeForYouAlbums } from "@/lib/data/albums"
-import { playlists } from "@/lib/data/playlists";
+import { serviceLists } from "@/lib/data/serviceLists";
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Music App",
-  description: "Example music app using the components.",
-}
+// export const metadata: Metadata = {
+//   title: "Community",
+//   description: "Find Activities to do with your friends",
+// }
 
-export default function MusicPage() {
+export default function CommunityPage() {
+
+  const { data: session, status } = useSession();
+  const authenticated = status === 'authenticated';
+  const router = useRouter();
+
+  
+  if(!authenticated) {
+    router.push("admin/login");
+    return;
+  }
+
+  
   return (
     <>
-      <div className="md:hidden">
-        <Image
-          src="/examples/music-light.png"
-          width={1280}
-          height={1114}
-          alt="Music"
-          className="block dark:hidden"
-        />
-        <Image
-          src="/examples/music-dark.png"
-          width={1280}
-          height={1114}
-          alt="Music"
-          className="hidden dark:block"
-        />
-      </div>
-      <div className="hidden md:block">
-        <Menu />
+
+      <div className="hidden md:block -mt-20">
+        
         <div className="border-t">
           <div className="bg-background">
             <div className="grid lg:grid-cols-5">
-              <Sidebar playlists={playlists} className="hidden lg:block" />
+              <Sidebar serviceLists={serviceLists} className="hidden lg:block" />
               <div className="col-span-3 lg:col-span-4 lg:border-l">
                 <div className="h-full px-4 py-6 lg:px-8">
-                  <Tabs defaultValue="music" className="h-full space-y-6">
+                  <Tabs defaultValue="community" className="h-full space-y-6">
                     <div className="space-between flex items-center">
                       <TabsList>
-                        <TabsTrigger value="music" className="relative">
-                          Music
+                        <TabsTrigger value="community" className="relative">
+                          In Person
                         </TabsTrigger>
-                        <TabsTrigger value="podcasts">Podcasts</TabsTrigger>
+                        <TabsTrigger value="podcasts">Online</TabsTrigger>
                         <TabsTrigger value="live" disabled>
                           Live
                         </TabsTrigger>
@@ -65,18 +65,18 @@ export default function MusicPage() {
                       <div className="ml-auto mr-4">
                         <Button>
                           <PlusCircledIcon className="mr-2 h-4 w-4" />
-                          Add music
+                          Add Event
                         </Button>
                       </div>
                     </div>
                     <TabsContent
-                      value="music"
+                      value="community"
                       className="border-none p-0 outline-none"
                     >
                       <div className="flex items-center justify-between">
                         <div className="space-y-1">
                           <h2 className="text-2xl font-semibold tracking-tight">
-                            Listen Now
+                            Events now
                           </h2>
                           <p className="text-sm text-muted-foreground">
                             Top picks for you. Updated daily.
@@ -106,7 +106,7 @@ export default function MusicPage() {
                           Made for You
                         </h2>
                         <p className="text-sm text-muted-foreground">
-                          Your personal playlists. Updated daily.
+                          Your personal serviceList. Updated daily.
                         </p>
                       </div>
                       <Separator className="my-4" />
@@ -135,10 +135,10 @@ export default function MusicPage() {
                       <div className="flex items-center justify-between">
                         <div className="space-y-1">
                           <h2 className="text-2xl font-semibold tracking-tight">
-                            New Episodes
+                            Online Events
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            Your favorite podcasts. Updated daily.
+                            Events happening right now
                           </p>
                         </div>
                       </div>

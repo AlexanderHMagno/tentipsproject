@@ -5,23 +5,33 @@ import Image from 'next/image';
 import DarkToggle from '@/components/dark-toggle'
 import { useSession, signOut } from 'next-auth/react';
 import { Button } from './ui/button';
+import { useRouter } from 'next/navigation';
 
 
 
-
-const list = [
-    // { id: 1, title: "Home", path: "/"},
-    { id: 3, title: "Blog", path: "/blog"},
-    { id: 4, title: "About", path: "/about"},
-    { id: 5, title: "Contact", path: "/contact"},
-    { id: 6, title: "Dashboard", path: "/dashboard", auth: true},
-    { id: 7, title: "Music", path: "/music", auth: true},
-    { id: 7, title: "Login", path: "/admin/login", auth: false},
-];
 
 function Navbar() {
 
   const { data: session, status } = useSession();
+  const authenticated = status === 'authenticated';
+  const router = useRouter();
+
+
+  const list = [
+    // { id: 1, title: "Home", path: "/"},
+    { id: 3, title: "Blog", path: "/blog", auth: authenticated},
+    { id: 4, title: "About", path: "/about" ,  auth: !authenticated},
+    { id: 5, title: "Contact", path: "/contact" ,  auth: !authenticated},
+    { id: 6, title: "Dashboard", path: "/dashboard", auth: authenticated},
+    { id: 7, title: "Community  ", path: "/community", auth: authenticated},
+    { id: 8, title: "Login", path: "/admin/login", auth: !authenticated},
+  ];
+
+  const closeProgam = () => {
+    signOut();
+    router.push("/");
+  }
+
 
 
   return (<nav className=" text-black bg-white border-black  dark:bg-gradient-radial dark:bg-black min-w-full ">
@@ -38,17 +48,23 @@ function Navbar() {
     </button>
     <div className="hidden w-full md:block md:w-auto" id="navbar-default">
       <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 "  >
-      {list.map(link => 
-        <li key={link.id}>
-          <Link className="block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-teal-500 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" href={link.path} >{link.title}</Link>
-        </li>)
-        }
+      {list.filter(link => link.auth == true).map(link => {
+        return (
+          <li key={link.id}>
+            {link.auth 
+              ? <Link className="block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-teal-500 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" href={link.path} >{link.title}</Link>
+              : ""
+            }
+          </li>)
+
+        })
+      }
         <li >
         <DarkToggle/>
         </li>
-        { status === 'authenticated' && 
-        <li>
-          <Button className=" -m-2 block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-teal-500 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" onClick={() => signOut()}>
+        { authenticated  && 
+        <li className='ml-10'>
+          <Button className=" -m-2 block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-teal-500 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" onClick={() => closeProgam()}>
             LogOut
           </Button>
         </li>

@@ -13,8 +13,23 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
 
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter
+} from "@/components/ui/dialog"
+
 import { Album } from "@/lib/data/albums"
 import { playlists } from "@/lib/data/playlists"
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+
 
 interface AlbumArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
   album: Album
@@ -89,6 +104,46 @@ export function AlbumArtwork({
       <div className="space-y-1 text-sm">
         <h3 className="font-medium leading-none">{album.name}</h3>
         <p className="text-xs text-muted-foreground">{album.artist}</p>
+      </div>
+      <div className="flex justify-end white">
+
+
+<Dialog>
+      <DialogTrigger asChild>
+        <Button variant="default" className="rounded hover:square bg-orange-600 hover:bg-orange-300 text-white w-96">Join</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-black">
+        <DialogHeader>
+          <DialogTitle>Go to this event?</DialogTitle>
+          <DialogDescription>
+            Are you sure you would like to go to this event?
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className=" flex justify-center items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+              {album.artist}  - {album.name}
+            </Label>
+          </div>
+ 
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="username" className="text-right">
+              # Tickets
+            </Label>
+            <Input id="tickets" type="number"  className="col-span-1" />
+
+            <Label htmlFor="username" className="text-right">
+              Price : 0
+            </Label>
+          </div>
+        </div>
+        <DialogFooter>
+          <DialogTrigger asChild>
+          <Button  type="submit">Save changes</Button>
+          </DialogTrigger>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
       </div>
     </div>
   )
