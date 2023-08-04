@@ -81,7 +81,7 @@ export function AccountForm() {
 
   return (
     <>
-    <Form {...form}>
+    <Form  {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
@@ -100,7 +100,7 @@ export function AccountForm() {
           )}
         />
      
-        <Button type="submit">Generate Topic</Button>
+        <Button className="bg-orange-400 w-full hover:bg-orange-600" type="submit">Generate Topic</Button>
       </form>
     </Form>
 
