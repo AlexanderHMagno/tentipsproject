@@ -1,0 +1,38 @@
+import mongoose  from "mongoose";
+const {Schema, models} = mongoose;
+
+const EntriesSchema = new Schema(
+    {
+        title:{
+            type: String,
+            required: true,
+        },
+        desc : {
+            type: String,
+            required: true,
+        },
+        img: {
+            type:String,
+            required:false,
+        },
+        content: {
+            type: String,
+            required: true,
+        
+        }, 
+        tags: {
+            type: Array<string>, 
+            required: false, 
+        },
+        visible: {
+            type: Boolean,
+            default : false
+        }
+    },
+    {timestamps: true}
+)
+
+const mod = models.Entries || mongoose.model("Entries", EntriesSchema) ;
+export default mod;
+
+
