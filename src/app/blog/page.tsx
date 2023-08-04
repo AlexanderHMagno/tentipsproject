@@ -1,6 +1,7 @@
 import CardBase from "@/components/CardBase";
 import Image from "next/image";
 import Link from "next/link";
+import styles from "./page.module.css";
 
 
 
@@ -24,7 +25,7 @@ const Blog = async () => {
   
   <section className="mb-32 text-center lg:text-left">
     <h2 className="mb-12 text-center text-3xl font-bold">
-      10 tips about:
+      Trending Now:
     </h2>
 
     <div className="grid gap-x-6 lg:grid-cols-3">
@@ -40,7 +41,7 @@ const Blog = async () => {
             width="1000" 
             height="1000" 
             src={elem.img} 
-            className="w-full object-fill min-h-full" />
+            className={`w-full object-fill min-h-full ${styles.pictures}`} />
           <Link href={`blog/${elem._id}`} >
             <div
               className="mask absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100 bg-[hsla(0,0%,98.4%,0.2)]">

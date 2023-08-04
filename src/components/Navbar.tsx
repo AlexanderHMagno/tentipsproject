@@ -22,7 +22,7 @@ function Navbar() {
     { id: 3, title: "Blog", path: "/blog", auth: authenticated},
     { id: 4, title: "About", path: "/about" ,  auth: !authenticated},
     { id: 5, title: "Contact", path: "/contact" ,  auth: !authenticated},
-    { id: 6, title: "Dashboard", path: "/dashboard", auth: authenticated},
+    { id: 6, title: "Dashboard", path: "/blog/create", auth: authenticated},
     { id: 7, title: "Community  ", path: "/community", auth: authenticated},
     { id: 8, title: "Login", path: "/admin/login", auth: !authenticated},
   ];
@@ -36,10 +36,9 @@ function Navbar() {
 
   return (<nav className=" text-black bg-white border-black  dark:bg-gradient-radial dark:bg-black min-w-full ">
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="./" className="flex items-center">
+    <Link href="./" className="flex items-center">
         <Image width={150} height={100} src="/images/logo.png" alt="10 tips idea" />
-        
-    </a>
+    </Link>
     <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
         <span className="sr-only">Open main menu</span>
         <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
