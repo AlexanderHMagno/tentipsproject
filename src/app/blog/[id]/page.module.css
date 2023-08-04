@@ -1,5 +1,6 @@
 .picture {
     height: 500px;
+    object-fit: cover;
     overflow: hidden;
 }
 
