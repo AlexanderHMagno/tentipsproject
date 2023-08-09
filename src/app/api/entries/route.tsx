@@ -1,4 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
+import fetch from "node-fetch";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 
 import connect from "@/lib/utils/db";
@@ -17,11 +19,24 @@ export const GET  = async (request:Request) => {
 }
 
 
-export const POST  = async (request:Request) => {
+export const POST = async(request:Request) => {
+
     try {
-        
         await connect();
 
+        const data = await request.json();
+        const {solicitude} = data || "";
+
+
+        if (solicitude.trim().length === 0) {
+
+            return new NextResponse(
+                JSON.stringify({message: "Please enter a valid topic"}),
+                {status:400});
+        }
+
+
+        // OPEN AI PROCESS REQUEST METADATA
 
         const configuration = new Configuration({
             apiKey: process.env.OPENAI_API_KEY,
@@ -33,55 +48,40 @@ export const POST  = async (request:Request) => {
             return new NextResponse(JSON.stringify(message), {status:500});
         }
 
-        const data = await request.json();
-        const {solicitude} = data || "";
-
-        if (solicitude.trim().length === 0) {
-
-            return new NextResponse(
-                JSON.stringify({message: "Please enter a valid topic"}),
-                {status:400});
-        }
 
         try {
 
+            //REQUEST DATA 
             const metaData = await openai.createCompletion({
               model: "text-davinci-003",
               prompt: generateMeta(solicitude),
               temperature: 0.6,
               max_tokens: 1000
             });
-            
-            
             const answer= JSON.parse(metaData.data.choices[0].text || "") ;
             // @ts-ignore comment
-            console.log(answer);
             const {title, tags, short} = answer; 
 
-            
+
+            //Generate Images 
+
+            const imageUrl = await generateIMAGE(tags);
+
             const completion = await openai.createCompletion({
                 model: "text-davinci-003",
                 prompt: generatePrompt(solicitude),
                 temperature: 0.6,
                 max_tokens: 2000
                 });
-            
+
             const content = completion.data.choices[0].text?.trim();
+
             
-            await sleep(20000);
-
-            const response = await openai.createImage({
-                prompt: `a photo  of ${title} with ${tags} as background: important: no letters on it`,
-                n: 1,
-                size: "1024x1024",
-              });
-            const image_url = response.data.data[0].url;
-
             const entrie = await Entries.create(
                 {
                     title,
                     desc: short,
-                    img: image_url,
+                    img: imageUrl,
                     content,
                     tags: tags,
                 }
@@ -106,11 +106,109 @@ export const POST  = async (request:Request) => {
                 }), {status:500});              
             }
         }
+    } catch (e) {
 
-    } catch (error) {
-        return new NextResponse("Not working", {status:400});
     }
+
+
 }
+
+
+
+// export const POST  = async (request:Request) => {
+//     try {
+
+//         await connect();
+
+
+//         const configuration = new Configuration({
+//             apiKey: process.env.OPENAI_API_KEY,
+//         });
+//         const openai = new OpenAIApi(configuration);
+
+//         if (!configuration.apiKey) {
+//             const message = "OpenAI API key not configured, please follow instructions in README.md";
+//             return new NextResponse(JSON.stringify(message), {status:500});
+//         }
+
+//         const data = await request.json();
+//         const {solicitude} = data || "";
+
+//         if (solicitude.trim().length === 0) {
+
+//             return new NextResponse(
+//                 JSON.stringify({message: "Please enter a valid topic"}),
+//                 {status:400});
+//         }
+
+//         try {
+
+//             const metaData = await openai.createCompletion({
+//               model: "text-davinci-003",
+//               prompt: generateMeta(solicitude),
+//               temperature: 0.6,
+//               max_tokens: 1000
+//             });
+
+
+//             const answer= JSON.parse(metaData.data.choices[0].text || "") ;
+//             // @ts-ignore comment
+//             console.log(answer);
+//             const {title, tags, short} = answer; 
+
+
+//             const completion = await openai.createCompletion({
+//                 model: "text-davinci-003",
+//                 prompt: generatePrompt(solicitude),
+//                 temperature: 0.6,
+//                 max_tokens: 2000
+//                 });
+
+//             const content = completion.data.choices[0].text?.trim();
+
+//             await sleep(20000);
+
+//             const response = await openai.createImage({
+//                 prompt: `a photo  of ${title} with ${tags} as background: important: no letters on it`,
+//                 n: 1,
+//                 size: "1024x1024",
+//               });
+//             const image_url = response.data.data[0].url;
+
+//             const entrie = await Entries.create(
+//                 {
+//                     title,
+//                     desc: short,
+//                     img: image_url,
+//                     content,
+//                     tags: tags,
+//                 }
+//             );
+//             return new NextResponse(JSON.stringify({
+//                 result: content
+//             }), {status:200});
+
+
+//         } catch(error:any) {
+//             // Consider adjusting the error handling logic for your use case
+//             if (error.response) {
+//                 console.error(error.response.status, error.response.data);
+//                 return new NextResponse(
+//                     JSON.stringify(error.response?.data),
+//                     {status: error.response?.status}
+//                     );
+//             } else {
+//                 console.error(`Error with OpenAI API request: ${error.message}`);
+//                 return new NextResponse(JSON.stringify({
+//                     message: 'An error occurred during your request.',
+//                 }), {status:500});              
+//             }
+//         }
+
+//     } catch (error) {
+//         return new NextResponse("Not working", {status:400});
+//     }
+// }
 
 
 function sleep(ms : number) {
@@ -119,6 +217,82 @@ function sleep(ms : number) {
     });
   }
 
+
+
+const  generateIMAGE = async (topic:Array<string>)  => {
+
+    try{
+        
+        for (let index = 0; index < topic.length; index++) {
+            
+            // PIXABAY PROCESS
+            const params = {
+                key: process.env.PIXABAY_API_KEY || "",
+                q : topic[index],
+                image_type :"photo",
+                pretty : "true",
+                order : "popular",
+                
+            };
+
+            const url = new URL('https://pixabay.com/api/');
+            const param = new URLSearchParams(params).toString();
+            const uri = `${url}?${param}`
+
+
+            // return 
+            const images = await fetch(uri);
+            const imageJSON = await images.json();
+
+            //@ts-ignore if not images continue
+            if(!imageJSON['hits'].length) continue;
+
+
+            // AWS CONFIG
+            //@ts-ignore
+            const s3 = new S3Client({
+            
+            region: process.env.AWS_S3_REGION,
+            credentials: {
+                accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
+                secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
+            },
+            
+            }) ;
+            
+            //@ts-ignore
+            const element = imageJSON['hits'][getRandomInt(imageJSON['hits'].length)];
+            // The URL of the image to download
+            const imageURL = element.largeImageURL;
+            // The name of the image file
+            const fileName = `${element.id}.jpg`;
+
+            // Use fetch to get the image data as a buffer
+            
+            const imageData = await fetch(imageURL);
+            //@ts-ignore
+            const buffer = await imageData.buffer();
+
+            
+            const uploadedImage = await s3.send(new PutObjectCommand({
+                    Bucket: process.env.AWS_S3_BUCKET_NAME_IMAGES || "",
+                    Key: `blogs/${fileName}`,
+                    Body: buffer,
+                    }
+            ));
+
+            
+            return fileName;
+
+        }
+
+        throw new Error("Not image found");
+        
+    } catch (error) {
+        
+        return "notFound.jpg";
+    }   
+} 
 
 function generatePrompt(topic : string) {
   const capitalizedTopic =
@@ -142,3 +316,6 @@ function generateMeta(topic : string) {
     // with a catchy title, body (at least 500 words with html and tailwind css for react) , tags, short content`;
   }
 
+  function getRandomInt(max:number) {
+    return Math.floor(Math.random() * max);
+  }

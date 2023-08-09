@@ -40,7 +40,7 @@ const Blog = async () => {
             alt="subtitle" 
             width="1000" 
             height="1000" 
-            src={elem.img} 
+            src={`${process.env.AWS_S3_BLOG_IMAGES_URL}${elem.img}`} 
             className={`w-full object-fill min-h-full ${styles.pictures}`} />
           <Link href={`blog/${elem._id}`} >
             <div

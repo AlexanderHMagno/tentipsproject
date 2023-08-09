@@ -62,7 +62,7 @@ const Blog = async ({params} : props) => {
  
     <div className={`mb-10 sm:mx-0  ${styles.picture}`}>
       <div className="sm:mx-0">
-        <Image src={img}  loading="lazy" width={1300} height={630} decoding='async' className='shadow-sm w-full h-auto max-w-full' alt={"Display Image"}/>
+        <Image src={`${process.env.AWS_S3_BLOG_IMAGES_URL}${img}`}  loading="lazy" width={1300} height={630} decoding='async' className='shadow-sm w-full h-auto max-w-full' alt={"Display Image"}/>
       </div>  
     </div>
 
