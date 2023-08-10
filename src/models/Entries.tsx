@@ -15,6 +15,10 @@ const EntriesSchema = new Schema(
             type:String,
             required:false,
         },
+        imageUser: {
+            type:String,
+            required:false,
+        },
         content: {
             type: String,
             required: true,

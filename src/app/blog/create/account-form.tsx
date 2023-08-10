@@ -18,7 +18,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { toast } from "@/components/ui/use-toast"
 import { useState } from "react";
 
 
@@ -28,7 +27,7 @@ const accountFormSchema = z.object({
     .min(10, {
       message: "Topic must be at least 10 characters.",
     })
-    .max(50, {
+    .max(500, {
       message: "Name must not be longer than 50 characters.",
     }),
 
@@ -68,9 +67,6 @@ export function AccountForm() {
       if (response.status !== 200) {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
-
-
-      console.log(data);
       setResult(data.result);
     } catch(error) {
       // Consider implementing your own error handling logic here

@@ -39,10 +39,11 @@ const Blog = async ({params} : props) => {
   
   const data = await getData(params.id );
 
-  const {title, img, desc, content, tags, createdAt} = data;
+  const {title, img, imageUser, desc, content, tags, createdAt} = data;
+
+  
   const date = parseISO(createdAt);
 
-  console.log(data);
   
 
   return (
@@ -62,9 +63,13 @@ const Blog = async ({params} : props) => {
  
     <div className={`mb-10 sm:mx-0  ${styles.picture}`}>
       <div className="sm:mx-0">
-        <Image src={`${process.env.AWS_S3_BLOG_IMAGES_URL}${img}`}  loading="lazy" width={1300} height={630} decoding='async' className='shadow-sm w-full h-auto max-w-full' alt={"Display Image"}/>
+        <Image src={`${process.env.AWS_S3_BLOG_IMAGES_URL}${img}`}  loading="lazy" width={1300} height={630} decoding='async' className='shadow-sm w-full h-auto max-w-full z-0' alt={"Display Image"}/>
       </div>  
     </div>
+
+    {imageUser && (
+        <small className='-mt-16 mb-20 block ml-5 bg-black text-white'>{`by ${imageUser} via Pixabay`}</small>
+      )}
 
     <div className="max-w-2xl mx-auto mb-10">
       <div className='mb-6 text-lg '>

@@ -65,7 +65,7 @@ export const POST = async(request:Request) => {
 
             //Generate Images 
 
-            const imageUrl = await generateIMAGE(tags);
+            const {imageUrl, imageUser} = await generateIMAGE(tags);
 
             const completion = await openai.createCompletion({
                 model: "text-davinci-003",
@@ -82,10 +82,12 @@ export const POST = async(request:Request) => {
                     title,
                     desc: short,
                     img: imageUrl,
+                    imageUser,
                     content,
                     tags: tags,
                 }
             );
+
             return new NextResponse(JSON.stringify({
                 result: content
             }), {status:200});
@@ -115,101 +117,6 @@ export const POST = async(request:Request) => {
 
 
 
-// export const POST  = async (request:Request) => {
-//     try {
-
-//         await connect();
-
-
-//         const configuration = new Configuration({
-//             apiKey: process.env.OPENAI_API_KEY,
-//         });
-//         const openai = new OpenAIApi(configuration);
-
-//         if (!configuration.apiKey) {
-//             const message = "OpenAI API key not configured, please follow instructions in README.md";
-//             return new NextResponse(JSON.stringify(message), {status:500});
-//         }
-
-//         const data = await request.json();
-//         const {solicitude} = data || "";
-
-//         if (solicitude.trim().length === 0) {
-
-//             return new NextResponse(
-//                 JSON.stringify({message: "Please enter a valid topic"}),
-//                 {status:400});
-//         }
-
-//         try {
-
-//             const metaData = await openai.createCompletion({
-//               model: "text-davinci-003",
-//               prompt: generateMeta(solicitude),
-//               temperature: 0.6,
-//               max_tokens: 1000
-//             });
-
-
-//             const answer= JSON.parse(metaData.data.choices[0].text || "") ;
-//             // @ts-ignore comment
-//             console.log(answer);
-//             const {title, tags, short} = answer; 
-
-
-//             const completion = await openai.createCompletion({
-//                 model: "text-davinci-003",
-//                 prompt: generatePrompt(solicitude),
-//                 temperature: 0.6,
-//                 max_tokens: 2000
-//                 });
-
-//             const content = completion.data.choices[0].text?.trim();
-
-//             await sleep(20000);
-
-//             const response = await openai.createImage({
-//                 prompt: `a photo  of ${title} with ${tags} as background: important: no letters on it`,
-//                 n: 1,
-//                 size: "1024x1024",
-//               });
-//             const image_url = response.data.data[0].url;
-
-//             const entrie = await Entries.create(
-//                 {
-//                     title,
-//                     desc: short,
-//                     img: image_url,
-//                     content,
-//                     tags: tags,
-//                 }
-//             );
-//             return new NextResponse(JSON.stringify({
-//                 result: content
-//             }), {status:200});
-
-
-//         } catch(error:any) {
-//             // Consider adjusting the error handling logic for your use case
-//             if (error.response) {
-//                 console.error(error.response.status, error.response.data);
-//                 return new NextResponse(
-//                     JSON.stringify(error.response?.data),
-//                     {status: error.response?.status}
-//                     );
-//             } else {
-//                 console.error(`Error with OpenAI API request: ${error.message}`);
-//                 return new NextResponse(JSON.stringify({
-//                     message: 'An error occurred during your request.',
-//                 }), {status:500});              
-//             }
-//         }
-
-//     } catch (error) {
-//         return new NextResponse("Not working", {status:400});
-//     }
-// }
-
 
 function sleep(ms : number) {
     return new Promise((resolve) => {
@@ -228,10 +135,11 @@ const  generateIMAGE = async (topic:Array<string>)  => {
             // PIXABAY PROCESS
             const params = {
                 key: process.env.PIXABAY_API_KEY || "",
-                q : topic[index],
+                q : topic[index].trim(),
                 image_type :"photo",
                 pretty : "true",
                 order : "popular",
+                per_page: "10"
                 
             };
 
@@ -242,11 +150,9 @@ const  generateIMAGE = async (topic:Array<string>)  => {
 
             // return 
             const images = await fetch(uri);
-            const imageJSON = await images.json();
+            const imageJSON : any = await images.json();
 
-            //@ts-ignore if not images continue
             if(!imageJSON['hits'].length) continue;
-
 
             // AWS CONFIG
             //@ts-ignore
@@ -273,7 +179,6 @@ const  generateIMAGE = async (topic:Array<string>)  => {
             //@ts-ignore
             const buffer = await imageData.buffer();
 
-            
             const uploadedImage = await s3.send(new PutObjectCommand({
                     Bucket: process.env.AWS_S3_BUCKET_NAME_IMAGES || "",
                     Key: `blogs/${fileName}`,
@@ -281,23 +186,27 @@ const  generateIMAGE = async (topic:Array<string>)  => {
                     }
             ));
 
-            
-            return fileName;
-
+            return {
+                imageUrl: fileName,
+                imageUser: element.user,
+            }
         }
 
         throw new Error("Not image found");
         
     } catch (error) {
         
-        return "notFound.jpg";
+        return {
+            imageUrl: "notFound.jpg",
+            imageUser: "Ross Mann",
+        }
     }   
 } 
 
 function generatePrompt(topic : string) {
   const capitalizedTopic =
     topic[0].toUpperCase() + topic.slice(1).toLowerCase();
-  return ` generate 10 tips for ${capitalizedTopic} :
+  return ` generate 10 tips (without numbers in titles) for ${capitalizedTopic} :
   body (at least 500 words per tip with html for react): 
   as example <div><h2>for titles</h2><p>for content</p></div>
   `;
