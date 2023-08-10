@@ -5,6 +5,9 @@ import { notFound } from 'next/navigation'
 import styles from "./page.module.css";
 import { Badge } from '@/components/ui/badge';
 import { parseISO, format } from 'date-fns';
+import Link from 'next/link';
+
+
 
 
 
@@ -39,7 +42,7 @@ const Blog = async ({params} : props) => {
   
   const data = await getData(params.id );
 
-  const {title, img, imageUser, desc, content, tags, createdAt} = data;
+  const {_id, title, img, imageUser, desc, content, tags, createdAt} = data;
 
   
   const date = parseISO(createdAt);
@@ -48,7 +51,7 @@ const Blog = async ({params} : props) => {
 
   return (
     <article className='mb-32 max-w-4xl m-auto'>
-    <h1 className='text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left'>
+    <h1 className='text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left '>
       {title}
     </h1>
 
@@ -58,6 +61,10 @@ const Blog = async ({params} : props) => {
       <span className='mt-2'>
       <time dateTime={createdAt}>{format(date, 'LLLL d, yyyy')}</time>
       </span>
+
+      <Link href={`./${_id}/edit`}>
+          <button className='ml-5 py-2 px-5 text-1xl rounded-full bg-green-500'>Edit</button>
+      </Link>
       
     </div>
  
