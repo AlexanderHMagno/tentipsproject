@@ -28,6 +28,19 @@ const EntriesSchema = new Schema(
             type: Array<string>, 
             required: false, 
         },
+        category: {
+            type: String, 
+            required: false, 
+        },
+        likes: {
+            type: Number, 
+            required: false, 
+            default : 0
+        },
+        author: {
+            type: Number, 
+            required: false, 
+        },
         visible: {
             type: Boolean,
             default : false
