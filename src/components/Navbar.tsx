@@ -10,6 +10,8 @@ import { useRouter } from "next/navigation";
 function Navbar() {
   const { data: session, status } = useSession();
   const authenticated = status === "authenticated";
+
+  console.log(status);
   const router = useRouter();
 
   const list = [
@@ -26,6 +28,22 @@ function Navbar() {
     signOut();
     router.push("/");
   };
+
+  if (status === "loading")
+    return (
+      <nav className=" text-black bg-white border-black  dark:bg-gradient-radial dark:bg-black min-w-full ">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+          <Link href="/about" className="flex items-center">
+            <Image
+              width={150}
+              height={100}
+              src="/images/logo.png"
+              alt="10 tips idea"
+            />
+          </Link>
+        </div>
+      </nav>
+    );
 
   return (
     <nav className=" text-black bg-white border-black  dark:bg-gradient-radial dark:bg-black min-w-full ">
