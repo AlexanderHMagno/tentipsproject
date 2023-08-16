@@ -5,7 +5,12 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import connect from "@/lib/utils/db";
 import { NextResponse } from "next/server";
 import Entries from "@/models/Entries";
-import { superGenerator } from "@/app/api/entries/superCreator";
+import Queue from "@/models/Queue";
+import { getRandomInt } from "@/lib/functions";
+import OPENAI from "@/lib/api/openAi";
+import User, { userCreators } from "@/models/User";
+import { categories } from "@/lib/data/categories";
+import { th } from "date-fns/locale";
 
 export const GET = async (request: Request) => {
   try {
@@ -22,53 +27,51 @@ export const POST = async (request: Request) => {
     await connect();
 
     const data = await request.json();
-    const { solicitude } = data || "";
 
-    if (solicitude.trim().length === 0) {
-      return new NextResponse(
-        JSON.stringify({ message: "Please enter a valid topic" }),
-        { status: 400 }
-      );
+    const { solicitude, type }: { solicitude: string; type: string } =
+      data || "";
+
+    let content;
+
+    switch (type) {
+      case "queue":
+        content = await generateNewEntryToQueue(data);
+        break;
+      default:
+        if (solicitude.trim().length === 0) {
+          return new NextResponse(
+            JSON.stringify({ message: "Please enter a valid topic" }),
+            { status: 400 }
+          );
+        }
+        content = await generateEntryFromInput(solicitude);
+
+        break;
     }
 
-    // OPEN AI PROCESS REQUEST METADATA
-
-    try {
-      //   await superGenerator();
-      const content = await generateEntryFromInput(solicitude);
-      //   const content = "Alex";
-
+    return new NextResponse(
+      JSON.stringify({
+        result: content,
+      }),
+      { status: 200 }
+    );
+  } catch (error: any) {
+    // Consider adjusting the error handling logic for your use case
+    if (error.response) {
+      return new NextResponse(JSON.stringify(error.response?.data), {
+        status: error.response?.status,
+      });
+    } else {
+      console.error(`Error with OpenAI API request: ${error.message}`);
       return new NextResponse(
         JSON.stringify({
-          result: content,
+          message: "An error occurred during your request.",
         }),
-        { status: 200 }
+        { status: 500 }
       );
-    } catch (error: any) {
-      // Consider adjusting the error handling logic for your use case
-      if (error.response) {
-        console.error(error.response.status, error.response.data);
-        return new NextResponse(JSON.stringify(error.response?.data), {
-          status: error.response?.status,
-        });
-      } else {
-        console.error(`Error with OpenAI API request: ${error.message}`);
-        return new NextResponse(
-          JSON.stringify({
-            message: "An error occurred during your request.",
-          }),
-          { status: 500 }
-        );
-      }
     }
-  } catch (e) {}
+  }
 };
-
-export function sleep(ms: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-}
 
 export const generateIMAGE = async (topic: Array<string>) => {
   try {
@@ -160,8 +163,38 @@ function generateMeta(topic: string) {
   // with a catchy title, body (at least 500 words with html and tailwind css for react) , tags, short content`;
 }
 
-function getRandomInt(max: number, min: number = 0) {
-  return Math.floor(Math.random() * max) + min;
+async function generateNewEntryToQueue(data: any): Promise<boolean> {
+  return new Promise<boolean>(async (resolve, reject) => {
+    try {
+      const OpenAI = new OPENAI();
+
+      let request = data.allCategories ? categories : [data.category];
+
+      request.forEach(async (category) => {
+        const completion = await OpenAI.generateRequest(
+          `Generate a list of ${data.number}  "how to" questions about the topic ${category} ${data.solicitude}`,
+          0.6,
+          1000
+        );
+
+        const content = completion.data.choices[0].text?.trim();
+        const inputs = content?.replaceAll(/[\d.]+\s/g, "").split("\n");
+
+        inputs?.map(async (topic: string) => {
+          const createQueue = await Queue.create({
+            title: topic,
+            category: category,
+            created: false,
+            author: userCreators[getRandomInt(userCreators.length)],
+          });
+        });
+      });
+
+      return resolve(true);
+    } catch (error) {
+      return reject(false);
+    }
+  });
 }
 
 export async function generateEntryFromInput(solicitude: string) {
@@ -213,6 +246,6 @@ export async function generateEntryFromInput(solicitude: string) {
 
     return content;
   } catch (e) {
-    return "Alex";
+    return e;
   }
 }

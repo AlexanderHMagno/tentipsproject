@@ -1,4 +1,5 @@
-import { generateEntryFromInput, sleep } from "@/app/api/entries/route";
+import { generateEntryFromInput } from "@/app/api/entries/route";
+import { sleep } from "@/lib/functions";
 
 const data_to_create = [
   "Beginner's Guide to Yoga and Its Benefits",
