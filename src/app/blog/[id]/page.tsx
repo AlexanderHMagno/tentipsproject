@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { parseISO, format } from "date-fns";
 import Link from "next/link";
 import { Metadata, ResolvingMetadata } from "next";
+import { WritterArea } from "@/components/writterArea";
 
 type props = {
   title: string;
@@ -70,60 +71,63 @@ const Blog = async ({ params }: props) => {
   const date = parseISO(createdAt);
 
   return (
-    <article className="mb-32 max-w-4xl m-auto">
-      <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left ">
-        {title}
-      </h1>
+    <>
+      <article className="mb-32 max-w-4xl m-auto">
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left ">
+          {title}
+        </h1>
 
-      <div className="flex align-middle mb-4 ">
-        <PeopleCard id={author} />
+        <div className="flex align-middle mb-4 ">
+          <PeopleCard id={author} />
 
-        <span className="mt-2">
-          <time dateTime={createdAt}>{format(date, "LLLL d, yyyy")}</time>
-        </span>
+          <span className="mt-2">
+            <time dateTime={createdAt}>{format(date, "LLLL d, yyyy")}</time>
+          </span>
 
-        <Link href={`./${_id}/edit`}>
-          <button className="ml-5 py-2 px-5 text-1xl rounded-full bg-green-500">
-            Edit
-          </button>
-        </Link>
-      </div>
-
-      <div className={`mb-10 sm:mx-0  ${styles.picture}`}>
-        <div className="sm:mx-0">
-          <Image
-            src={`${process.env.NEXT_PUBLIC_AWS_S3_BLOG_IMAGES_URL}${img}`}
-            loading="lazy"
-            width={1300}
-            height={630}
-            decoding="async"
-            className={`shadow-sm w-full max-w-full z-0 ${styles.picturepost}`}
-            alt={`image of ${tags.join(", ")} `}
-          />
+          <Link href={`./${_id}/edit`}>
+            <button className="ml-5 py-2 px-5 text-1xl rounded-full bg-green-500">
+              Edit
+            </button>
+          </Link>
         </div>
-      </div>
 
-      {imageUser && (
-        <small className="-mt-16 mb-20 block ml-5 bg-black text-white">{`by ${imageUser} via Pixabay`}</small>
-      )}
+        <div className={`mb-10 sm:mx-0  ${styles.picture}`}>
+          <div className="sm:mx-0">
+            <Image
+              src={`${process.env.NEXT_PUBLIC_AWS_S3_BLOG_IMAGES_URL}${img}`}
+              loading="lazy"
+              width={1300}
+              height={630}
+              decoding="async"
+              className={`shadow-sm w-full max-w-full z-0 ${styles.picturepost}`}
+              alt={`image of ${tags.join(", ")} `}
+            />
+          </div>
+        </div>
 
-      <div className="max-w-2xl mx-auto mb-10">
-        <div className="mb-6 text-lg ">
-          {tags.map((tag: string) => (
-            <Badge className="bg-green-400 hover:bg-blue-400 mr-5" key={tag}>
-              {tag}
-            </Badge>
-          ))}
+        {imageUser && (
+          <small className="-mt-16 mb-20 block ml-5 bg-black text-white">{`by ${imageUser} via Pixabay`}</small>
+        )}
+
+        <div className="max-w-2xl mx-auto mb-10">
+          <div className="mb-6 text-lg ">
+            {tags.map((tag: string) => (
+              <Badge className="bg-green-400 hover:bg-blue-400 mr-5" key={tag}>
+                {tag}
+              </Badge>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="max-w-2xl mx-auto">
-        <div
-          className={`font-sans text-lg formatted-page ${styles["formatted-page"]}`}
-        >
-          <div dangerouslySetInnerHTML={{ __html: content }}></div>
+        <div className="max-w-2xl mx-auto">
+          <div
+            className={`font-sans text-lg formatted-page ${styles["formatted-page"]}`}
+          >
+            <div dangerouslySetInnerHTML={{ __html: content }}></div>
+          </div>
         </div>
-      </div>
-    </article>
+        <WritterArea id={author} />
+      </article>
+    </>
   );
 };
 

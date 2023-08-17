@@ -82,7 +82,7 @@ export function AccountForm() {
             name="category"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Category</FormLabel>
+                <FormLabel className="mr-5">Category</FormLabel>
                 <FormControl>
                   <select placeholder="Category" {...field}>
                     {categories.map((option: string) => (

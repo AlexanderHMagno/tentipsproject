@@ -40,7 +40,7 @@ export async function PeopleCard({ id }: props) {
           </div>
         </Button>
       </HoverCardTrigger>
-      <HoverCardContent className="w-80 bg-white">
+      <HoverCardContent className="w-80 bg-white dark:bg-black">
         <div className="flex justify-between space-x-4">
           <Avatar>
             <AvatarImage src={`/images/profile/${image}`} />

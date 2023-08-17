@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import Session from "@/context/session-provider";
 import { Metadata } from "next";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ export default function RootLayout({
             <div className="flex min-h-screen flex-col items-center justify-between p-24">
               {children}
             </div>
+            <Footer />
           </Session>
         </ThemeProvider>
       </body>

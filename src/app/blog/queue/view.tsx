@@ -10,14 +10,14 @@ const Queue = async () => {
 
   return (
     <>
-      <div className=" mb-96 mx-auto md:px-6">
+      <div className=" mb-96 mx-auto md:px-6 ">
         <section className="">
           <h2 className="mb-12 text-center text-3xl font-bold">Queue</h2>
 
           <div className="">
-            <table className="w-full border bg-white">
+            <table className="w-full border bg-white dark:bg-gray-800">
               <thead>
-                <tr className="bg-gray-200">
+                <tr className="bg-gray-200 dark:bg-gray-950">
                   <th className="py-2 px-4 border">Title</th>
                   <th className="py-2 px-4 border">Category</th>
                   <th className="py-2 px-4 border">Created</th>
