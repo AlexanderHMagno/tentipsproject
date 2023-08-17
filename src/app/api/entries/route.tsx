@@ -28,7 +28,12 @@ export const POST = async (request: Request) => {
 
     const data = await request.json();
 
-    const { solicitude, type }: { solicitude: string; type: string } =
+    const {
+      solicitude,
+      type,
+      category,
+      author,
+    }: { solicitude: string; type: string; category: string; author: string } =
       data || "";
 
     let content;
@@ -44,7 +49,8 @@ export const POST = async (request: Request) => {
             { status: 400 }
           );
         }
-        content = await generateEntryFromInput(solicitude);
+
+        content = await generateEntryFromInput(solicitude, category, author);
 
         break;
     }
@@ -219,7 +225,7 @@ export async function generateEntryFromInput(
       model: "text-davinci-003",
       prompt: generateMeta(solicitude),
       temperature: 0.6,
-      max_tokens: 1000,
+      max_tokens: 1500,
     });
     const answer = JSON.parse(metaData.data.choices[0].text || "");
     // @ts-ignore comment
@@ -250,8 +256,10 @@ export async function generateEntryFromInput(
       likes: getRandomInt(200, 50),
     });
 
+    console.log(content);
     return content;
   } catch (e) {
+    console.log(e);
     return e;
   }
 }
