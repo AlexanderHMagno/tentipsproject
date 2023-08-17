@@ -55,7 +55,17 @@ export async function generateMetadata(
 const Blog = async ({ params }: props) => {
   const data = await getData(params.id);
 
-  const { _id, title, img, imageUser, desc, content, tags, createdAt } = data;
+  const {
+    _id,
+    title,
+    img,
+    imageUser,
+    desc,
+    content,
+    tags,
+    createdAt,
+    author = "64dc060418039d6d54c2a236",
+  } = data;
 
   const date = parseISO(createdAt);
 
@@ -66,7 +76,7 @@ const Blog = async ({ params }: props) => {
       </h1>
 
       <div className="flex align-middle mb-4 ">
-        <PeopleCard name={"Alexander Hortua"} />
+        <PeopleCard id={author} />
 
         <span className="mt-2">
           <time dateTime={createdAt}>{format(date, "LLLL d, yyyy")}</time>
