@@ -197,7 +197,11 @@ async function generateNewEntryToQueue(data: any): Promise<boolean> {
   });
 }
 
-export async function generateEntryFromInput(solicitude: string) {
+export async function generateEntryFromInput(
+  solicitude: string,
+  category: string = "",
+  author: string = ""
+) {
   try {
     const configuration = new Configuration({
       apiKey: process.env.OPENAI_API_KEY,
@@ -240,6 +244,8 @@ export async function generateEntryFromInput(solicitude: string) {
       img: imageUrl,
       imageUser,
       content,
+      category,
+      author,
       tags: tags,
       likes: getRandomInt(200, 50),
     });
