@@ -1,7 +1,7 @@
 import EntryCard from "@/components/EntryCard";
 
 const getData = async () => {
-  const data = await fetch(`${process.env.NEXTAUTH_URL}/api/entries`, {
+  const data = await fetch(`${process.env.PROJECT_URL}/api/entries`, {
     cache: "no-store",
   });
   return data.json();
