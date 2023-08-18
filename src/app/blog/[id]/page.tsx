@@ -23,7 +23,7 @@ interface props {
 }
 
 const getData = async (entry: string) => {
-  const data = await fetch(`${process.env.NEXTAUTH_URL}/api/entries/${entry}`, {
+  const data = await fetch(`${process.env.PROJECT_URL}/api/entries/${entry}`, {
     cache: "no-store",
   });
 
