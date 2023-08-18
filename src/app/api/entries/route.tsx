@@ -10,15 +10,19 @@ import { getRandomInt } from "@/lib/functions";
 import OPENAI from "@/lib/api/openAi";
 import User, { userCreators } from "@/models/User";
 import { categories } from "@/lib/data/categories";
-import { th } from "date-fns/locale";
 
 export const GET = async (request: Request) => {
   try {
+    console.log("Alex");
     await connect();
+    console.log("Alex 1");
     const skipPost = 1;
     const posts = await Entries.find();
+
+    console.log("Ale3");
     return new NextResponse(JSON.stringify(posts), { status: 200 });
   } catch (error) {
+    console.log("Ale4");
     return new NextResponse(JSON.stringify("Not working"), { status: 400 });
   }
 };

@@ -5,13 +5,14 @@ const getData = async () => {
     cache: "no-store",
   });
 
-  if (!data.ok) return new Promise((res, rej) => res([]));
+  if (!data.ok) return new Promise((resolve, reject) => resolve([]));
 
   return data.json();
 };
 
 const Blog = async () => {
   const data = await getData();
+  console.log(data);
 
   return (
     <>
