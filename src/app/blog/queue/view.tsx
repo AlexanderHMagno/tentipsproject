@@ -1,5 +1,5 @@
 const getData = async () => {
-  const data = await fetch("http://localhost:3000/api/queue", {
+  const data = await fetch(`${process.env.NEXTAUTH_URL}/api/queue`, {
     cache: "no-store",
   });
   return data.json();

@@ -59,7 +59,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Home({ params }: any) {
   const { data, error, isLoading } = useSWR(
-    `http://localhost:3000/api/entries/${params.id}`,
+    `${process.env.NEXTAUTH_URL}/api/entries/${params.id}`,
     fetcher
   );
 

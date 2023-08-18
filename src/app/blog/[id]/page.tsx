@@ -23,7 +23,7 @@ type props = {
 };
 
 const getData = async (entry: string) => {
-  const data = await fetch(`http://localhost:3000/api/entries/${entry}`, {
+  const data = await fetch(`${process.env.NEXTAUTH_URL}/api/entries/${entry}`, {
     cache: "no-store",
   });
 

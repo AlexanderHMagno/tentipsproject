@@ -14,7 +14,7 @@ type props = {
 };
 
 const getData = async (entry: string) => {
-  const data = await fetch(`http://localhost:3000/api/user/${entry}`);
+  const data = await fetch(`${process.env.NEXTAUTH_URL}/api/user/${entry}`);
   return data.json();
 };
 
