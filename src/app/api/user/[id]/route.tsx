@@ -8,7 +8,6 @@ export const GET = async (request: Request, { params }: any) => {
 
     const user = await Users.findById(params.id);
 
-    console.log(user);
     return new NextResponse(JSON.stringify(user), { status: 200 });
   } catch (error) {
     return new NextResponse("Not working", { status: 400 });

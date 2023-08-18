@@ -15,6 +15,7 @@ import { th } from "date-fns/locale";
 export const GET = async (request: Request) => {
   try {
     await connect();
+    const skipPost = 1;
     const posts = await Entries.find();
     return new NextResponse(JSON.stringify(posts), { status: 200 });
   } catch (error) {
@@ -256,7 +257,6 @@ export async function generateEntryFromInput(
       likes: getRandomInt(200, 50),
     });
 
-    console.log(content);
     return content;
   } catch (e) {
     console.log(e);
