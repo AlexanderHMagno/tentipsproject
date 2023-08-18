@@ -15,7 +15,7 @@ type props = {
 };
 
 const getData = async (entry: string) => {
-  const data = await fetch(`${process.env.NEXTAUTH_URL}/api/user/${entry}`);
+  const data = await fetch(`${process.env.PROJECT_URL}/api/user/${entry}`);
   return data.json();
 };
 
