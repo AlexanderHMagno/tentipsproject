@@ -8,7 +8,7 @@ export default function Footer() {
         <Link href="/about" className="flex items-center">
           <Image
             width={150}
-            height={100}
+            height={150}
             src="/images/logo.png"
             alt="10 tips idea"
             className="self-baseline"

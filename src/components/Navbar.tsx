@@ -36,9 +36,10 @@ function Navbar() {
           <Link href="/about" className="flex items-center">
             <Image
               width={150}
-              height={100}
+              height={150}
               src="/images/logo.png"
               alt="10 tips idea"
+              priority={true}
             />
           </Link>
         </div>
@@ -51,9 +52,10 @@ function Navbar() {
         <Link href="/about" className="flex items-center">
           <Image
             width={150}
-            height={100}
+            height={150}
             src="/images/logo.png"
             alt="10 tips idea"
+            priority={true}
           />
         </Link>
         <button

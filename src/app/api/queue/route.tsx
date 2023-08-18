@@ -10,7 +10,7 @@ export const GET = async (request: Request) => {
     const posts = await Queue.find({ created: false });
     return new NextResponse(JSON.stringify(posts), { status: 200 });
   } catch (error) {
-    return new NextResponse("Not working", { status: 400 });
+    return new NextResponse(JSON.stringify("Not working"), { status: 400 });
   }
 };
 

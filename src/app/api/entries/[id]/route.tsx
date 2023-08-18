@@ -9,7 +9,7 @@ export const GET = async (request: Request, { params }: any) => {
     const posts = await Entries.findById(params.id);
     return new NextResponse(JSON.stringify(posts), { status: 200 });
   } catch (error) {
-    return new NextResponse("Not working", { status: 400 });
+    return new NextResponse(JSON.stringify("Not working"), { status: 400 });
   }
 };
 
@@ -25,7 +25,7 @@ export const PATCH = async (request: Request, { params }: any) => {
 
     return new NextResponse(JSON.stringify(post), { status: 200 });
   } catch (error) {
-    return new NextResponse("Not working", { status: 400 });
+    return new NextResponse(JSON.stringify("Not working"), { status: 400 });
   }
 };
 
