@@ -18,9 +18,9 @@ function About() {
 
             <p>
               At 10 Tips, we believe that the power of knowledge lies in its
-              accessibility and applicability. That's why we've curated a
+              accessibility and applicability. That is why we have curated a
               collection of precisely 10 tips for each topic we cover. Whether
-              you're seeking guidance on personal growth, health, technology,
+              you are seeking guidance on personal growth, health, technology,
               travel, or anything in between, our succinct and practical tips
               are designed to empower you.
             </p>
@@ -28,7 +28,7 @@ function About() {
             <p>
               Our team of experts scours the realms of expertise to bring you
               the most valuable and relevant insights. With our user-friendly
-              format, you'll find it easy to absorb and implement our advice,
+              format, you will find it easy to absorb and implement our advice,
               saving you time and effort. From enhancing your well-being to
               mastering new skills, 10 Tips is here to inspire and guide you on
               your journey to success and fulfillment.
