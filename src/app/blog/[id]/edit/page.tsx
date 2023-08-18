@@ -59,7 +59,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Home({ params }: any) {
   const { data, error, isLoading } = useSWR(
-    `${process.env.PROJECT_URL}/api/entries/${params.id}`,
+    `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/entries/${params.id}`,
     fetcher
   );
 

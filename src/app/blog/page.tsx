@@ -5,14 +5,15 @@ const getData = async () => {
     cache: "no-store",
   });
 
-  if (!data.ok) return new Promise((resolve, reject) => resolve([]));
+  if (!data.ok) {
+    return new Promise((resolve, reject) => resolve([]));
+  }
 
   return data.json();
 };
 
-const Blog = async () => {
+export default async function Blog() {
   const data = await getData();
-  console.log(data);
 
   return (
     <>
@@ -33,6 +34,4 @@ const Blog = async () => {
       </div>
     </>
   );
-};
-
-export default Blog;
+}
