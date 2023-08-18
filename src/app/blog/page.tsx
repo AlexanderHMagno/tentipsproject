@@ -1,7 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
-import styles from "./page.module.css";
-import { capitalize } from "@/lib/functions";
 import EntryCard from "@/components/EntryCard";
 
 const getData = async () => {
@@ -32,10 +28,6 @@ const Blog = async () => {
         </section>
       </div>
     </>
-
-    // <div>
-    //   {data.map((x:any) => <CardBase key={x._id} {...x}/>)}
-    // </div>
   );
 };
 
