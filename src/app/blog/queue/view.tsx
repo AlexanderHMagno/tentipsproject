@@ -1,7 +1,11 @@
 const getData = async () => {
-  const data = await fetch(`${process.env.PROJECT_URL}/api/queue`, {
+  const data = await fetch(`${process.env.PROJECT_URL}api/queue`, {
     cache: "no-store",
   });
+
+  if (!data.ok) {
+    return new Promise((resolve, reject) => resolve([]));
+  }
   return data.json();
 };
 
