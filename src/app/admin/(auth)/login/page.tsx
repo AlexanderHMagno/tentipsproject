@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { Icons } from "@/components/icons"
-import { Button } from "@/components/ui/button"
+import { Icons } from "@/components/icons";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,20 +9,20 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useSession, signIn } from "next-auth/react"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
   const router = useRouter();
   const { status } = useSession();
-  if(status === 'authenticated') {
-    router.push("/community");
+  if (status === "authenticated") {
+    router.push("/blog");
     return;
   }
-  
+
   return (
     <Card>
       <CardHeader className="space-y-1">
@@ -37,8 +37,8 @@ const Login = () => {
             <Icons.gitHub className="mr-2 h-4 w-4" />
             Github
           </Button>
-          <Button variant="outline" onClick={() => signIn('google')}>
-            <Icons.google className="mr-2 h-4 w-4"  />
+          <Button variant="outline" onClick={() => signIn("google")}>
+            <Icons.google className="mr-2 h-4 w-4" />
             Google
           </Button>
         </div>
@@ -65,7 +65,7 @@ const Login = () => {
         <Button className="w-full">Create account</Button>
       </CardFooter>
     </Card>
-  )
-}
+  );
+};
 
 export default Login;

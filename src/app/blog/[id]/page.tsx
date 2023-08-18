@@ -9,18 +9,18 @@ import Link from "next/link";
 import { Metadata, ResolvingMetadata } from "next";
 import { WritterArea } from "@/components/writterArea";
 
-type props = {
+interface props {
   title: string;
   desc: string;
   image: string;
-  owner: string; //should be type author
+  owner: string;
   tags: [];
   time: string;
   content: string;
   params: {
     id: string;
   };
-};
+}
 
 const getData = async (entry: string) => {
   const data = await fetch(`${process.env.NEXTAUTH_URL}/api/entries/${entry}`, {
@@ -34,7 +34,7 @@ const getData = async (entry: string) => {
 };
 
 export async function generateMetadata(
-  { params }: props,
+  { params }: any,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
@@ -53,7 +53,7 @@ export async function generateMetadata(
   };
 }
 
-const Blog = async ({ params }: props) => {
+const Blog = async ({ params }: any) => {
   const data = await getData(params.id);
 
   const {

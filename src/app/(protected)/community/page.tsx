@@ -1,54 +1,41 @@
-'use client';
-import { Metadata } from "next"
-import Image from "next/image"
-import { PlusCircledIcon } from "@radix-ui/react-icons"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { ScrollArea, ScrollBar } from "@//components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
+import { PlusCircledIcon } from "@radix-ui/react-icons";
 
-import { AlbumArtwork } from "@/components/album-artwork"
-import { Menu } from "@/components/menu"
-import { PodcastEmptyPlaceholder } from "@/components/podcast-empty-placeholder"
-import { Sidebar } from "@/components/sidebar"
-import { listenNowAlbums, madeForYouAlbums } from "@/lib/data/albums"
+import { Button } from "@/components/ui/button";
+import { ScrollArea, ScrollBar } from "@//components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+import { AlbumArtwork } from "@/components/album-artwork";
+
+import { PodcastEmptyPlaceholder } from "@/components/podcast-empty-placeholder";
+import { Sidebar } from "@/components/sidebar";
+import { listenNowAlbums, madeForYouAlbums } from "@/lib/data/albums";
 import { serviceLists } from "@/lib/data/serviceLists";
-import { useSession } from "next-auth/react"
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-// export const metadata: Metadata = {
-//   title: "Community",
-//   description: "Find Activities to do with your friends",
-// }
-
 export default function CommunityPage() {
-
   const { data: session, status } = useSession();
-  const authenticated = status === 'authenticated';
+  const authenticated = status === "authenticated";
   const router = useRouter();
 
-  
-  if(!authenticated) {
-    router.push("admin/login");
+  if (!authenticated) {
+    // router.push("/admin/login");
     return;
   }
 
-  
   return (
     <>
-
       <div className="hidden md:block -mt-20">
-        
         <div className="border-t">
           <div className="bg-background">
             <div className="grid lg:grid-cols-5">
-              <Sidebar serviceLists={serviceLists} className="hidden lg:block" />
+              <Sidebar
+                serviceLists={serviceLists}
+                className="hidden lg:block"
+              />
               <div className="col-span-3 lg:col-span-4 lg:border-l">
                 <div className="h-full px-4 py-6 lg:px-8">
                   <Tabs defaultValue="community" className="h-full space-y-6">
@@ -153,5 +140,5 @@ export default function CommunityPage() {
         </div>
       </div>
     </>
-  )
+  );
 }
