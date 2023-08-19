@@ -17,7 +17,7 @@ export default async function Blog() {
 
   return (
     <>
-      <div className="container  mx-auto md:px-6">
+      <div className="container px-1 mx-auto md:px-6">
         <section className=" text-center lg:text-left">
           <h2 className="mb-12 text-center text-3xl font-bold">
             Trending Now:

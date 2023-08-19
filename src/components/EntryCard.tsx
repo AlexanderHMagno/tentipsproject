@@ -9,7 +9,7 @@ export default function EntryCard({ elem }: { elem: any }) {
   return (
     <div key={elem._id} className="flex align-baseline md:block mb-12 lg:mb-10">
       <div
-        className="min-w-[100px] mb-5 mx-auto relative overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-lg dark:shadow-black/20 bg-[50%]"
+        className="min-w-[100px] mb-5 mx-auto relative overflow-hidden rounded-lg bg-cover bg-no-repeat  dark:shadow-black/20 bg-[50%]"
         data-te-ripple-init
         data-te-ripple-color="light"
       >
