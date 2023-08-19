@@ -172,14 +172,13 @@ export default function Home({ params }: any) {
             />
           </div>
         </div>
+        <button
+          className="py-2 px-5 text-2xl w-full bottom-0 bg-blue-500 sticky text-white"
+          onClick={onSubmit}
+        >
+          Save
+        </button>
       </div>
-
-      <button
-        className="ml-5 py-2 px-5 text-2xl rounded-full bg-blue-500"
-        onClick={onSubmit}
-      >
-        Save
-      </button>
     </article>
   );
 }
