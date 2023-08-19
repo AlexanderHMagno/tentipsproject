@@ -34,7 +34,7 @@ export async function PeopleCard({ id }: props) {
               className="w-12 h-12 rounded-full mr-4"
               alt={`image of ${name} ${last}`}
             />
-            <div className="text-xl font-bold">
+            <div className="md:text-xl font-bold">
               {name} {last}
             </div>
           </div>

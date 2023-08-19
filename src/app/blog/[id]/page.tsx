@@ -77,10 +77,10 @@ const Blog = async ({ params }: any) => {
           {title}
         </h1>
 
-        <div className="flex align-middle mb-4 ">
+        <div className="flex items-center mb-4 ">
           <PeopleCard id={author} />
 
-          <span className="mt-2">
+          <span className="text-xs lg:text-sm">
             <time dateTime={createdAt}>{format(date, "LLLL d, yyyy")}</time>
           </span>
 
