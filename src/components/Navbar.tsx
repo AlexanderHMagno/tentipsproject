@@ -48,7 +48,7 @@ function Navbar() {
     );
 
   return (
-    <nav className=" text-black bg-white border-black  dark:bg-gradient-radial dark:bg-black min-w-full ">
+    <nav className=" text-black bg-white border-black  dark:bg-gradient-radial dark:bg-black min-w-full sticky top-0 z-50">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/about" className="flex items-center">
           <Image
