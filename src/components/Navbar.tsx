@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import DarkToggle from "@/components/dark-toggle";
 import { useSession, signOut } from "next-auth/react";
@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 
 function Navbar() {
   const { data: session, status } = useSession();
+  const [open, setOpen] = useState(false);
   const authenticated = status === "authenticated";
 
   const router = useRouter();
@@ -64,6 +65,7 @@ function Navbar() {
           className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           aria-controls="navbar-default"
           aria-expanded="false"
+          onClick={() => setOpen(!open)}
         >
           <span className="sr-only">Open main menu</span>
           <svg
@@ -82,7 +84,10 @@ function Navbar() {
             />
           </svg>
         </button>
-        <div className="hidden w-full md:block md:w-auto" id="navbar-default">
+        <div
+          className={`w-full md:block md:w-auto ${open ? "" : "hidden"}`}
+          id="navbar-default"
+        >
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 ">
             {list
               .filter((link) => link.auth == true)
@@ -102,19 +107,21 @@ function Navbar() {
                   </li>
                 );
               })}
-            <li>
+            <hr className="mb-5 md:hidden"></hr>
+            <li className="flex">
               <DarkToggle />
+
+              {authenticated && (
+                <span className="ml-5">
+                  <Button
+                    className=" -m-2 block py-2 pl-3 pr-4  rounded bg-teal-500 text-white "
+                    onClick={() => closeProgam()}
+                  >
+                    LogOut
+                  </Button>
+                </span>
+              )}
             </li>
-            {authenticated && (
-              <li className="ml-10">
-                <Button
-                  className=" -m-2 block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-teal-500 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  onClick={() => closeProgam()}
-                >
-                  LogOut
-                </Button>
-              </li>
-            )}
           </ul>
         </div>
       </div>
