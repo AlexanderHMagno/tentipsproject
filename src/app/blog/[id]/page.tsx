@@ -72,7 +72,7 @@ const Blog = async ({ params }: any) => {
 
   return (
     <>
-      <article className="mb-32 max-w-4xl m-auto">
+      <article className="p-5 mb-32 w-full lg:max-w-4xl m-auto">
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left ">
           {title}
         </h1>

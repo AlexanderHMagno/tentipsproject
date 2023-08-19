@@ -1,4 +1,14 @@
-const getData = async () => {
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+const getdata = async () => {
   const data = await fetch(`${process.env.PROJECT_URL}api/queue`, {
     cache: "no-store",
   });
@@ -10,46 +20,52 @@ const getData = async () => {
 };
 
 const Queue = async () => {
-  const data = await getData();
+  const data = await getdata();
 
   return (
     <>
-      <div className=" mb-96 mx-auto md:px-6 ">
+      <div className="w-full mb-96 mx-auto md:px-6 overflow-auto">
         <section className="">
           <h2 className="mb-12 text-center text-3xl font-bold">Queue</h2>
 
           <div className="">
-            <table className="w-full border bg-white dark:bg-gray-800">
-              <thead>
-                <tr className="bg-gray-200 dark:bg-gray-950">
-                  <th className="py-2 px-4 border">Title</th>
-                  <th className="py-2 px-4 border">Category</th>
-                  <th className="py-2 px-4 border">Created</th>
-                  <th className="py-2 px-4 border">Creator</th>
-                  <th className="py-2 px-4 border">Actions</th>
-                </tr>
-              </thead>
+            <Table className="w-full  text-base/3 border bg-white dark:bg-gray-800">
+              <TableHeader>
+                <TableRow className="bg-gray-200 dark:bg-gray-950">
+                  <TableHead className="py-2 px-4 border">Title</TableHead>
+                  <TableHead className="py-2 px-4 border">Category</TableHead>
+                  <TableHead className="py-2 px-4 border">Created</TableHead>
+                  <TableHead className="py-2 px-4 border">Creator</TableHead>
+                  <TableHead className="py-2 px-4 border">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
               <tbody>
                 {data.map((dat: any) => {
                   return (
-                    <tr key={data._id} className="border">
-                      <td className="py-2 px-4 border">{dat.title}</td>
-                      <td className="py-2 px-4 border">{dat.category}</td>
-                      <td className="py-2 px-4 border">False</td>
-                      <td className="py-2 px-4 border">{dat.author}</td>
-                      <td className="py-2 px-4 border">
+                    <TableRow key={data._id} className="border">
+                      <TableCell className="py-2 px-4 border">
+                        {dat.title}
+                      </TableCell>
+                      <TableCell className="py-2 px-4 border">
+                        {dat.category}
+                      </TableCell>
+                      <TableCell className="py-2 px-4 border">False</TableCell>
+                      <TableCell className="py-2 px-4 border">
+                        {dat.author}
+                      </TableCell>
+                      <TableCell className="py-2 px-4 border">
                         <button className="text-blue-500 hover:underline">
                           Edit
                         </button>
                         <button className="text-red-500 hover:underline ml-2">
                           Delete
                         </button>
-                      </td>
-                    </tr>
+                      </TableCell>
+                    </TableRow>
                   );
                 })}
               </tbody>
-            </table>
+            </Table>
           </div>
         </section>
       </div>

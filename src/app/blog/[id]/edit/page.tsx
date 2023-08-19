@@ -107,14 +107,15 @@ export default function Home({ params }: any) {
   }
 
   return (
-    <article className="mb-32 max-w-4xl m-auto">
+    <article className="mb-32 w-full max-w-4xl m-auto p-5">
       <Link href={`../${_id}`}>
         <button className="float-right ml-5 mb-10 py-2 px-5 text-1xl rounded-full bg-orange-500">
           Back
         </button>
       </Link>
-      <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left ">
+      <h1 className=" text-5xl lg:text-7xl font-bold tracking-tighter leading-none  text-left ">
         <textarea
+          className="w-full"
           value={titleHolder}
           onChange={(e) => setTitleHolder(e.target.value)}
         />

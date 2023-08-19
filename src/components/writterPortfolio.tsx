@@ -25,7 +25,7 @@ export async function WritterPortofolio({ id }: props) {
   const data = await getData(id);
 
   return (
-    <div className="grid gap-x-6 lg:grid-cols-3">
+    <div className="grid md:gap-x-6 md:grid-cols-2 lg:grid-cols-3">
       {data.map((entry: any) => (
         <span key={entry._id}>
           <EntryCard elem={entry} />{" "}

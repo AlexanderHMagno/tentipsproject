@@ -24,7 +24,7 @@ export async function WritterArea({ id }: props) {
   const { _id, image, name, last, bio, start } = data;
   const date = parseISO(start);
   return (
-    <Card className="mt-10 p-5 dark:bg-black  border-0 rounded-2xl">
+    <Card className="mt-10 dark:bg-black  border-0 rounded-2xl">
       <CardHeader className="flex flex-row items-center">
         <Image
           src={`/images/profile/${image}`}
