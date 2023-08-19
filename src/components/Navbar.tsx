@@ -108,7 +108,7 @@ function Navbar() {
                 );
               })}
             <hr className="mb-5 md:hidden"></hr>
-            <li className="flex">
+            <li className="flex" onClick={() => setOpen(false)}>
               <DarkToggle />
 
               {authenticated && (

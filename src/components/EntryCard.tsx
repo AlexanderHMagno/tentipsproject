@@ -7,7 +7,10 @@ import STR from "@supercharge/strings";
 
 export default function EntryCard({ elem }: { elem: any }) {
   return (
-    <div key={elem._id} className="flex align-baseline md:block mb-12 lg:mb-10">
+    <div
+      key={elem._id}
+      className="flex align-baseline md:block mb-5 pb-2 lg:mb-10 border-b-slate-50 dark:border-b-slate-900 border-b-2 sm:border-b-0"
+    >
       <div
         className="min-w-[100px] mb-5 mx-auto relative overflow-hidden rounded-lg bg-cover bg-no-repeat  dark:shadow-black/20 bg-[50%]"
         data-te-ripple-init
