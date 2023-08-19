@@ -45,7 +45,7 @@ export async function WritterArea({ id }: props) {
         <small>{bio}</small>
       </CardContent>
       <hr className="border-4" />
-      <CardFooter className="flex-col items-start">
+      <CardFooter className="flex-col items-start px-0">
         <h6 className="text-lg border-l mt-10 mb-10 font-bold">
           More From {name} {last}
         </h6>

@@ -23,7 +23,7 @@ export default async function Blog() {
             Trending Now:
           </h2>
 
-          <div className="grid md:gap-x-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="md:grid md:gap-x-6 md:grid-cols-2 lg:grid-cols-3">
             {data.map((elem: any) => (
               <span key={elem._id}>
                 <EntryCard elem={elem} />

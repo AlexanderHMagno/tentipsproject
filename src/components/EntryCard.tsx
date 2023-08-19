@@ -7,12 +7,9 @@ import STR from "@supercharge/strings";
 
 export default function EntryCard({ elem }: { elem: any }) {
   return (
-    <div
-      key={elem._id}
-      className="flex  align-baseline md:block mb-12 lg:mb-10"
-    >
+    <div key={elem._id} className="flex align-baseline md:block mb-12 lg:mb-10">
       <div
-        className="min-w-[150px] mb-5 mx-auto relative overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-lg dark:shadow-black/20 bg-[50%]"
+        className="min-w-[100px] mb-5 mx-auto relative overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-lg dark:shadow-black/20 bg-[50%]"
         data-te-ripple-init
         data-te-ripple-color="light"
       >
@@ -29,7 +26,7 @@ export default function EntryCard({ elem }: { elem: any }) {
         </Link>
       </div>
 
-      <div className="ml-5 md:ml-0 w-72 md:w-full text-left flex-grow">
+      <div className="ml-5 md:ml-0  md:w-full text-left flex-grow">
         <Link href={`/blog/${elem._id}`}>
           <h5 className="mb-4 text-base/7 font-bold leading-5">{elem.title}</h5>
         </Link>
