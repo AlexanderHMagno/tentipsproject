@@ -16,7 +16,8 @@ function Navbar() {
 
   const list = [
     // { id: 1, title: "Home", path: "/"},
-    { id: 3, title: "Blog", path: "/blog", auth: authenticated },
+    { id: 3, title: "Blog", path: "/blog", auth: true },
+    { id: 2, title: "Categories", path: "/categories", auth: true },
     { id: 4, title: "About", path: "/about", auth: !authenticated },
     { id: 5, title: "Contact", path: "/contact", auth: !authenticated },
     { id: 6, title: "Compose", path: "/blog/create", auth: authenticated },

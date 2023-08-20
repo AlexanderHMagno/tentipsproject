@@ -13,9 +13,8 @@ import { categories } from "@/lib/data/categories";
 
 export const GET = async (request: Request) => {
   try {
-    console.log("Alex");
     await connect();
-    console.log("Alex 1");
+
     const skipPost = 1;
     const posts = await Entries.find();
 
