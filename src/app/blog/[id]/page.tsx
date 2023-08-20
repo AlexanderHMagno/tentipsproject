@@ -75,12 +75,9 @@ const Blog = async ({ params }: any) => {
     <>
       <Script
         async
-        id="Adsense-id"
-        data-ad-client="ca-pub-7470419655173226"
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7470419655173226"
         crossOrigin="anonymous"
       ></Script>
-
       <article className="p-5 mb-32 w-full lg:max-w-4xl m-auto">
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left ">
           {title}
