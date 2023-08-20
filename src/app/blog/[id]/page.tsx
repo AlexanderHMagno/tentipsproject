@@ -8,7 +8,6 @@ import { parseISO, format } from "date-fns";
 import Link from "next/link";
 import { Metadata, ResolvingMetadata } from "next";
 import { WritterArea } from "@/components/writterArea";
-import Script from "next/script";
 
 interface props {
   title: string;
@@ -73,11 +72,6 @@ const Blog = async ({ params }: any) => {
 
   return (
     <>
-      <Script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7470419655173226"
-        crossOrigin="anonymous"
-      ></Script>
       <article className="p-5 mb-32 w-full lg:max-w-4xl m-auto">
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left ">
           {title}
