@@ -1,4 +1,4 @@
-import connect from "@/lib/utils/db";
+import { connect } from "@/lib/utils/db";
 import Categories from "@/models/Categories";
 import { NextResponse } from "next/server";
 
@@ -6,8 +6,7 @@ import { categories } from "@/lib/data/categories";
 
 export const GET = async (request: Request) => {
   try {
-    await connect();
-
+    const connection = await connect();
     const skipPost = 1;
     const posts = await Categories.find().sort("title");
 

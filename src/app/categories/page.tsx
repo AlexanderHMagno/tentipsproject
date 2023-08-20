@@ -1,35 +1,57 @@
+"use client";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import useSWR from "swr";
+import { useState } from "react";
 
-const getData = async () => {
-  const data = await fetch(`${process.env.PROJECT_URL}/api/categories`, {
-    cache: "no-store",
-  });
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-  if (!data.ok) {
-    return new Promise((resolve, reject) => resolve([]));
-  }
+export default function Categories() {
+  const [search, setSearch] = useState<string>("");
 
-  return data.json();
-};
+  const { data, error, isLoading } = useSWR(
+    `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/categories`,
+    fetcher
+  );
 
-export default async function Categories() {
-  const data = await getData();
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
 
   return (
     <>
       <div className="container px-1 mx-auto md:px-6">
-        <section className=" text-center lg:text-left">
-          <h2 className="mb-12 text-center text-3xl font-bold">Categories</h2>
+        <section className=" text-center lg:text-left mb-12">
+          <h1 className="mb-12 text-center text-3xl font-bold">
+            Explore topics
+          </h1>
 
-          <div className="">
-            {data.map((elem: any, idx: number) => (
-              <Link href={`categories/${elem.title}`} key={elem._id}>
-                <Badge variant="outline" className="hover:bg-teal-500 m-2">
-                  {elem.title}
-                </Badge>
-              </Link>
-            ))}
+          <div className="flex m-auto w-full max-w-sm items-center space-x-2">
+            <Input
+              type="text"
+              placeholder="Search"
+              className="rounded-3xl border-gray-0 bg-gray-100 hover:bg-gray-300 px-5"
+              onChange={(e: any) => setSearch(e.target.value)}
+            />
+          </div>
+        </section>
+
+        <section className=" text-center lg:text-left">
+          <h2 className="mb-12 text-center text-3xl font-bold">Topics</h2>
+
+          <div className=" grid grid-cols-2 lg:grid-cols-4">
+            {data
+              .filter(
+                (elem: any) =>
+                  elem.title.toLowerCase().includes(search.toLowerCase()),
+                search
+              )
+              .map((elem: any, idx: number) => (
+                <Link href={`categories/${elem.title}`} key={elem._id}>
+                  <Badge className="hover:bg-teal-500 m-2">{elem.title}</Badge>
+                </Link>
+              ))}
             <span></span>
           </div>
         </section>

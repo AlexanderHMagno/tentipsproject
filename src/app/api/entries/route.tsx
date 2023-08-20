@@ -2,7 +2,7 @@ import { Configuration, OpenAIApi } from "openai";
 import fetch from "node-fetch";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
-import connect from "@/lib/utils/db";
+import { connect } from "@/lib/utils/db";
 import { NextResponse } from "next/server";
 import Entries from "@/models/Entries";
 import Queue from "@/models/Queue";
@@ -19,7 +19,8 @@ export const GET = async (request: Request) => {
     const posts = await Entries.find();
 
     return new NextResponse(JSON.stringify(posts), { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
+    console.log(error);
     return new NextResponse(JSON.stringify("Not working"), { status: 400 });
   }
 };
