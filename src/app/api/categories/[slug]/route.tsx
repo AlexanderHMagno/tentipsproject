@@ -1,4 +1,4 @@
-import connect from "@/lib/utils/db";
+import { connect } from "@/lib/utils/db";
 import Categories from "@/models/Categories";
 import Entries from "@/models/Entries";
 import { NextResponse } from "next/server";
