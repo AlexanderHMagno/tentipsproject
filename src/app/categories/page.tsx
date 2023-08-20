@@ -41,17 +41,22 @@ export default function Categories() {
           <h2 className="mb-12 text-center text-3xl font-bold">Topics</h2>
 
           <div className=" grid grid-cols-2 lg:grid-cols-4">
-            {data
-              .filter(
-                (elem: any) =>
-                  elem.title.toLowerCase().includes(search.toLowerCase()),
-                search
-              )
-              .map((elem: any, idx: number) => (
-                <Link href={`categories/${elem.title}`} key={elem._id}>
-                  <Badge className="hover:bg-teal-500 m-2">{elem.title}</Badge>
-                </Link>
-              ))}
+            {data.map((elem: any, idx: number) => (
+              <Link href={`categories/${elem.title}`} key={elem._id}>
+                <Badge
+                  className={`
+                  ${
+                    search &&
+                    elem.title.toLowerCase().includes(search.toLowerCase())
+                      ? "bg-teal-500"
+                      : ""
+                  }
+                  hover:bg-orange-500 m-2`}
+                >
+                  {elem.title}
+                </Badge>
+              </Link>
+            ))}
             <span></span>
           </div>
         </section>
