@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Label } from "@/components/ui/label";
 
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   ssr: false,
@@ -63,17 +64,33 @@ export default function Home({ params }: any) {
     fetcher
   );
 
-  const { title, _id, img, imageUser, content, tags } = data || {};
+  const {
+    data: dataCat,
+    error: errorCat,
+    isLoading: isLoadingCat,
+  } = useSWR(`${process.env.NEXT_PUBLIC_PROJECT_URL}/api/categories`, fetcher);
+
+  const { title, _id, img, imageUser, content, tags, category } = data || {};
   const [titleHolder, setTitleHolder] = useState(title);
   const [contentHolder, setContentHolder] = useState(content);
+  const [categoriesHolder, setCategoriesHolder] = useState(category);
   const [imageHolder, setimageHolder] = useState(false);
   const router = useRouter();
 
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
+  if (error || errorCat) return <div>failed to load</div>;
+  if (isLoading || isLoadingCat) return <div>loading...</div>;
 
   if (!titleHolder) setTitleHolder(data.title);
   if (!contentHolder) setContentHolder(data.content);
+  if (!categoriesHolder) setCategoriesHolder(data.category);
+
+  const addCategory = (elem: any) => {
+    setCategoriesHolder([...categoriesHolder, elem.target.value]);
+  };
+
+  const removeCategory = (elem: any) => {
+    setCategoriesHolder([...categoriesHolder, elem.target.value]);
+  };
 
   async function onSubmit() {
     try {
@@ -86,6 +103,7 @@ export default function Home({ params }: any) {
           _id,
           title: titleHolder,
           content: contentHolder,
+          category: categoriesHolder,
           requestImage: imageHolder,
         }),
       });
@@ -151,11 +169,27 @@ export default function Home({ params }: any) {
 
       <div className="max-w-2xl mx-auto mb-10">
         <div className="mb-6 text-lg ">
-          {tags.map((tag: string) => (
-            <Badge className="bg-green-400 hover:bg-blue-400 mr-5" key={tag}>
-              {tag}
-            </Badge>
-          ))}
+          {categoriesHolder &&
+            categoriesHolder.map((tag: string) => (
+              <Badge
+                className="bg-green-400 hover:bg-blue-400 mr-5"
+                key={tag}
+                onClick={(e) => removeCategory(e)}
+              >
+                {tag}
+              </Badge>
+            ))}
+        </div>
+
+        <div>
+          <Label className="mr-5">Add a Category: </Label>
+          <select placeholder="Category" onChange={(e: any) => addCategory(e)}>
+            {dataCat.map((option: any) => (
+              <option key={option._id} value={option.title}>
+                {option.title}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
       <div className="max-w-2xl mx-auto">

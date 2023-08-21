@@ -5,6 +5,7 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { connect } from "@/lib/utils/db";
 import { NextResponse } from "next/server";
 import Entries from "@/models/Entries";
+import Categories from "@/models/Categories";
 import Queue from "@/models/Queue";
 import { getRandomInt } from "@/lib/functions";
 import OPENAI from "@/lib/api/openAi";
@@ -248,17 +249,24 @@ export async function generateEntryFromInput(
 
     const content = completion.data.choices[0].text?.trim();
 
+    const lowerTags = tags.map((elem: string) => elem.toLowerCase());
     await Entries.create({
       title,
       desc: short,
       img: imageUrl,
       imageUser,
       content,
-      category,
+      category: [category],
       author,
-      tags: tags,
+      tags: lowerTags,
       likes: getRandomInt(200, 50),
     });
+
+    const cat = await Categories.findOne({ title: category });
+    const merge = !cat.group ? [] : cat.group;
+    const merger = Array.from(new Set(merge.concat(lowerTags)));
+
+    await Categories.findOneAndUpdate({ title: category }, { group: merger });
 
     return content;
   } catch (e) {

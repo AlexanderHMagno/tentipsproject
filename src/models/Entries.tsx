@@ -28,7 +28,7 @@ const EntriesSchema = new Schema(
       required: false,
     },
     category: {
-      type: String,
+      type: Array<string>,
       required: false,
     },
     likes: {

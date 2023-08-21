@@ -7,18 +7,17 @@ export const CategoriesSchema = new Schema(
       type: String,
       required: true,
     },
-    group: {
-      type: String,
-    },
+    group: [
+      {
+        type: String,
+      },
+    ],
   },
   { timestamps: true }
 );
 
 export type CategoriesType = {
   title: String;
-  category: String;
-  author: Number;
-  created: Boolean;
 };
 
 const mod = models.Categories || mongoose.model("Categories", CategoriesSchema);

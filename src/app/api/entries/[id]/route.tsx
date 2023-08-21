@@ -30,10 +30,11 @@ export const PATCH = async (request: Request, { params }: any) => {
 };
 
 const updateContent = async (data: any) => {
-  const { _id, title, content } = data || {};
+  const { _id, title, content, category } = data || {};
   return await Entries.findByIdAndUpdate(_id, {
     title,
     content,
+    category,
   });
 };
 
