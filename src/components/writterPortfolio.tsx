@@ -18,7 +18,7 @@ export async function WritterPortofolio({ id }: props) {
     <div className="w-full md:grid md:gap-x-6 md:grid-cols-2 lg:grid-cols-3">
       {data.map((entry: any) => (
         <span key={entry._id}>
-          <EntryCard elem={entry} />{" "}
+          <EntryCard elem={entry} lazy={true} />{" "}
         </span>
       ))}
     </div>

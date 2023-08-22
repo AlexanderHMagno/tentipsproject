@@ -6,10 +6,7 @@ import STR from "@supercharge/strings";
 
 const getData = async (category: string) => {
   const data = await fetch(
-    `${process.env.PROJECT_URL}/api/categories/${category}`,
-    {
-      cache: "no-cache",
-    }
+    `${process.env.PROJECT_URL}/api/categories/${category}`
   );
 
   if (!data.ok) {
@@ -36,7 +33,7 @@ export default async function Blog({ params }: any) {
           <div className="md:grid md:gap-x-6 md:grid-cols-2 lg:grid-cols-3">
             {data.map((elem: any, idx: number) => (
               <span key={elem._id}>
-                <EntryCard elem={elem} />
+                <EntryCard elem={elem} lazy={idx > 10} />
                 {idx % 10 == 0 ?? <AdsenseClient />}
               </span>
             ))}

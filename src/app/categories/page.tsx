@@ -33,7 +33,7 @@ export default function Categories() {
             <Input
               type="text"
               placeholder="Search"
-              className="rounded-3xl border-gray-0 bg-gray-100 hover:bg-gray-300 px-5"
+              className="rounded-3xl border-gray-0 bg-gray-100 hover:bg-gray-300 px-5 dark:text-black"
               onChange={(e: any) => setSearch(e.target.value)}
             />
           </div>

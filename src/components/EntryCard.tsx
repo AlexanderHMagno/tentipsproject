@@ -5,7 +5,13 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 import STR from "@supercharge/strings";
 
-export default function EntryCard({ elem }: { elem: any }) {
+export default function EntryCard({
+  elem,
+  lazy,
+}: {
+  elem: any;
+  lazy: boolean;
+}) {
   return (
     <div
       key={elem._id}
@@ -23,6 +29,8 @@ export default function EntryCard({ elem }: { elem: any }) {
             sizes={"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
             src={`${process.env.AWS_S3_BLOG_IMAGES_URL}${elem.img}`}
             className="rounded-md object-cover align-baseline"
+            loading={lazy ? "lazy" : undefined}
+            priority={!lazy}
           />
         </AspectRatio>
         <Link href={`/blog/${elem._id}`}>

@@ -27,7 +27,7 @@ export default async function Blog() {
           <div className="md:grid md:gap-x-6 md:grid-cols-2 lg:grid-cols-3">
             {data.map((elem: any, idx: number) => (
               <span key={elem._id}>
-                <EntryCard elem={elem} />
+                <EntryCard elem={elem} lazy={idx > 10} />
                 {idx % 10 == 0 ?? <AdsenseClient />}
               </span>
             ))}
