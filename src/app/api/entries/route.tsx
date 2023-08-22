@@ -248,7 +248,7 @@ export async function generateEntryFromInput(
       model: "text-davinci-003",
       prompt: generatePrompt(solicitude),
       temperature: 0.6,
-      max_tokens: 2000,
+      max_tokens: 3000,
     });
 
     console.log(2);
