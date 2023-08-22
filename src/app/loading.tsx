@@ -1,15 +1,9 @@
-import Image from "next/image";
+import { Icons } from "@/components/icons";
 
 function Loading() {
   return (
     <div>
-      <Image
-        alt="10 tips logo"
-        src={"/images/logo.png"}
-        width={200}
-        height={200}
-        lazyRoot="lazy"
-      />
+      <Icons.spinner />
     </div>
   );
 }

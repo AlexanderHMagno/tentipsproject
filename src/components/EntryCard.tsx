@@ -20,6 +20,7 @@ export default function EntryCard({ elem }: { elem: any }) {
           <Image
             alt={`Image of ${elem.title}`}
             fill
+            sizes={"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
             src={`${process.env.AWS_S3_BLOG_IMAGES_URL}${elem.img}`}
             className="rounded-md object-cover align-baseline"
           />

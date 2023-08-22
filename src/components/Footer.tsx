@@ -1,41 +1,35 @@
-import Image from "next/image";
 import Link from "next/link";
+import Logo from "@/components/Logo";
 
 export default function Footer() {
   return (
     <div className="bg-gray-800 text-white py-8">
       <div className="container mx-auto flex flex-col md:flex-row justify-between">
-        <Link href="/about" className="flex items-center">
-          <Image
-            width={150}
-            height={150}
-            src="/images/logo.png"
-            alt="10 tips idea"
-            className="self-baseline"
-          />
-        </Link>
+        <div>
+          <Logo />
+        </div>
         <div className="md:w-1/4">
           <h2 className="text-lg font-semibold mb-3">About Us</h2>
           <ul className="list-none">
             <li className="mb-1">
-              <a href="#" className="hover:text-gray-400">
+              <Link href="/about" className="hover:text-gray-400">
                 About Us
-              </a>
+              </Link>
             </li>
             <li className="mb-1">
-              <a href="#" className="hover:text-gray-400">
+              <Link href="#" className="hover:text-gray-400">
                 Who We Are
-              </a>
+              </Link>
             </li>
             <li className="mb-1">
-              <a href="#" className="hover:text-gray-400">
+              <Link href="#" className="hover:text-gray-400">
                 Terms
-              </a>
+              </Link>
             </li>
             <li className="mb-1">
-              <a href="#" className="hover:text-gray-400">
+              <Link href="#" className="hover:text-gray-400">
                 Blog
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -43,14 +37,14 @@ export default function Footer() {
           <h2 className="text-lg font-semibold mb-3">Privacy</h2>
           <ul className="list-none">
             <li className="mb-1">
-              <a href="#" className="hover:text-gray-400">
+              <Link href="#" className="hover:text-gray-400">
                 Cookies
-              </a>
+              </Link>
             </li>
             <li className="mb-1">
-              <a href="#" className="hover:text-gray-400">
+              <Link href="#" className="hover:text-gray-400">
                 Privacy
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

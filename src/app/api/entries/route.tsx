@@ -17,7 +17,7 @@ export const GET = async (request: Request) => {
     await connect();
 
     const skipPost = 1;
-    const posts = await Entries.find();
+    const posts = await Entries.find().select("-content");
 
     return new NextResponse(JSON.stringify(posts), { status: 200 });
   } catch (error: any) {

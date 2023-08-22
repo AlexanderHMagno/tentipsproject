@@ -6,6 +6,7 @@ import DarkToggle from "@/components/dark-toggle";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import Logo from "@/components/Logo";
 
 function Navbar() {
   const { data: session, status } = useSession();
@@ -34,15 +35,9 @@ function Navbar() {
   if (status === "loading")
     return (
       <nav className=" text-black bg-white border-black  dark:bg-gradient-radial dark:bg-black min-w-full ">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 h-auto">
           <Link href="/about" className="flex items-center">
-            <Image
-              width={150}
-              height={150}
-              src="/images/logo.png"
-              alt="10 tips idea"
-              priority={true}
-            />
+            <Logo />
           </Link>
         </div>
       </nav>
@@ -50,15 +45,9 @@ function Navbar() {
 
   return (
     <nav className=" text-black bg-white border-black  dark:bg-gradient-radial dark:bg-black min-w-full sticky top-0 z-50">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 h-auto">
         <Link href="/about" className="flex items-center">
-          <Image
-            width={150}
-            height={150}
-            src="/images/logo.png"
-            alt="10 tips idea"
-            priority={true}
-          />
+          <Logo />
         </Link>
         <button
           data-collapse-toggle="navbar-default"
