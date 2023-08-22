@@ -2,8 +2,6 @@ import { connect } from "@/lib/utils/db";
 import Categories from "@/models/Categories";
 import { NextResponse } from "next/server";
 
-import { categories } from "@/lib/data/categories";
-
 export const GET = async (request: Request) => {
   try {
     const connection = await connect();

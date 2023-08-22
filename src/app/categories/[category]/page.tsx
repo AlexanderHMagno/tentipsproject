@@ -2,6 +2,7 @@ import EntryCard from "@/components/EntryCard";
 import AdsenseClient from "@/components/adSense";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import STR from "@supercharge/strings";
 
 const getData = async (category: string) => {
   const data = await fetch(
@@ -26,7 +27,7 @@ export default async function Blog({ params }: any) {
       <div className="container px-1 mx-auto md:px-6">
         <section className=" text-center lg:text-left">
           <h2 className="mb-12 text-center text-3xl font-bold flex flex-col items-center justify-center">
-            {decodeURI(params.category)}
+            {STR(decodeURI(params.category)).ucFirst().get()}
             <Link href="/categories">
               <Badge variant="outline">Display All</Badge>
             </Link>

@@ -126,9 +126,11 @@ const Blog = async ({ params }: any) => {
                 </Link>
               ))}
             {tags.map((tag: string) => (
-              <Badge className="bg-green-400 hover:bg-blue-400 mr-5" key={tag}>
-                {tag}
-              </Badge>
+              <Link key={tag} href={`/categories/${tag}`}>
+                <Badge className="bg-green-400 hover:bg-blue-400 mr-5">
+                  {tag}
+                </Badge>
+              </Link>
             ))}
           </div>
         </div>

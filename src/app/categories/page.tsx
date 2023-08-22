@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import useSWR from "swr";
 import { useState } from "react";
 import { Icons } from "@/components/icons";
+import STR from "@supercharge/strings";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -39,26 +40,47 @@ export default function Categories() {
           </div>
         </section>
 
-        <section className=" text-center lg:text-left">
+        <section className=" text-center">
           <h2 className="mb-12 text-center text-3xl font-bold">Topics</h2>
 
-          <div className=" grid grid-cols-2 lg:grid-cols-4 text-center">
-            {data.map((elem: any, idx: number) => (
-              <Link href={`categories/${elem.title}`} key={elem._id}>
-                <Badge
-                  className={`
-                  ${
-                    search &&
-                    elem.title.toLowerCase().includes(search.toLowerCase())
-                      ? "bg-teal-500"
-                      : ""
-                  }
-                  hover:bg-orange-500 m-2`}
-                >
-                  {elem.title}
-                </Badge>
-              </Link>
-            ))}
+          <div className=" grid grid-cols-2 lg:grid-cols-4 text-left ">
+            {data
+              .filter((elem: any) => {
+                const subgroup = elem.group;
+
+                const answer = subgroup.some((elem: string) =>
+                  elem.toLowerCase().includes(search.toLowerCase())
+                );
+
+                const title = elem.title
+                  .toLowerCase()
+                  .includes(search.toLowerCase());
+
+                return answer || title;
+              })
+              .map((elem: any, idx: number) => (
+                <div key={elem._id} className="my-2">
+                  <Link href={`categories/${elem.title}`}>
+                    <h3 className="text-lg  font-bold underline-offset-2 underline">
+                      {elem.title}
+                    </h3>
+                  </Link>
+                  <ul className="ml-1">
+                    {elem.group &&
+                      elem.group
+                        .filter((subTag: string) =>
+                          subTag.toLowerCase().includes(search.toLowerCase())
+                        )
+                        .map((subTag: string, idx: number) => (
+                          <li key={idx}>
+                            <Link href={`categories/${subTag}`}>
+                              <Badge>{STR(subTag).ucFirst().get()}</Badge>
+                            </Link>
+                          </li>
+                        ))}
+                  </ul>
+                </div>
+              ))}
             <span></span>
           </div>
         </section>
