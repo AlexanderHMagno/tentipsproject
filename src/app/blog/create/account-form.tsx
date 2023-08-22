@@ -1,10 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon, CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { categories } from "@/lib/data/categories";
+import useSWR from "swr";
 
 import { Button } from "@/components/ui/button";
 
@@ -38,12 +37,21 @@ type AccountFormValues = z.infer<typeof accountFormSchema>;
 // This can come from your database or API.
 const defaultValues: Partial<AccountFormValues> = {
   // solicitude: "Your solicitude",
-  category: "Art",
+  category: "Animals",
   author: "64dc060418039d6d54c2a236",
 };
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export function AccountForm() {
   const [result, setResult] = useState("");
+  const [submitLoading, setSubmitLoading] = useState<boolean>(false);
+
+  const {
+    data: categories,
+    error,
+    isLoading,
+  } = useSWR(`${process.env.NEXT_PUBLIC_PROJECT_URL}/api/categories`, fetcher);
 
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
@@ -52,6 +60,7 @@ export function AccountForm() {
 
   async function onSubmit(info: AccountFormValues) {
     try {
+      setSubmitLoading(true);
       const response = await fetch("/api/entries", {
         method: "POST",
         headers: {
@@ -73,8 +82,10 @@ export function AccountForm() {
       console.error(error);
       //   alert(error.message);
     }
+    setSubmitLoading(false);
   }
 
+  if (isLoading) return <h1>Loading</h1>;
   return (
     <>
       <Form {...form}>
@@ -103,9 +114,9 @@ export function AccountForm() {
                 <FormLabel className="mr-5">Category</FormLabel>
                 <FormControl>
                   <select placeholder="Category" {...field}>
-                    {categories.map((option: string) => (
-                      <option key={option} value={option}>
-                        {option}
+                    {categories.map((option: any) => (
+                      <option key={option._id} value={option.title}>
+                        {option.title}
                       </option>
                     ))}
                   </select>
@@ -119,8 +130,9 @@ export function AccountForm() {
           <Button
             className="bg-orange-400 w-full hover:bg-orange-600"
             type="submit"
+            disabled={submitLoading}
           >
-            Generate Topic
+            {submitLoading ? "Loading" : "Generate Topic"}
           </Button>
         </form>
       </Form>

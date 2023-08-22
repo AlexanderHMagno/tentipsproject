@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { categories } from "@/lib/data/categories";
+import useSWR from "swr";
 
 import { Button } from "@/components/ui/button";
 
@@ -35,13 +35,21 @@ type AccountFormValues = z.infer<typeof accountFormSchema>;
 const defaultValues: Partial<AccountFormValues> = {
   solicitude: "",
   type: "queue",
-  category: "Art",
+  category: "Animals",
   number: 10,
   allCategories: false,
 };
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export function AccountForm() {
   const [result, setResult] = useState("");
+
+  const {
+    data: categories,
+    error,
+    isLoading,
+  } = useSWR(`${process.env.NEXT_PUBLIC_PROJECT_URL}/api/categories`, fetcher);
 
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
@@ -73,6 +81,8 @@ export function AccountForm() {
     }
   }
 
+  if (isLoading) return <h1>Loading</h1>;
+
   return (
     <>
       <Form {...form}>
@@ -85,9 +95,9 @@ export function AccountForm() {
                 <FormLabel className="mr-5">Category</FormLabel>
                 <FormControl>
                   <select placeholder="Category" {...field}>
-                    {categories.map((option: string) => (
-                      <option key={option} value={option}>
-                        {option}
+                    {categories.map((option: any) => (
+                      <option key={option._id} value={option.title}>
+                        {option.title}
                       </option>
                     ))}
                   </select>
