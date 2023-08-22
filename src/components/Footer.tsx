@@ -37,12 +37,12 @@ export default function Footer() {
           <h2 className="text-lg font-semibold mb-3">Privacy</h2>
           <ul className="list-none">
             <li className="mb-1">
-              <Link href="#" className="hover:text-gray-400">
+              <Link href="/privacy" className="hover:text-gray-400">
                 Cookies
               </Link>
             </li>
             <li className="mb-1">
-              <Link href="#" className="hover:text-gray-400">
+              <Link href="/privacy" className="hover:text-gray-400">
                 Privacy
               </Link>
             </li>
