@@ -1,5 +1,4 @@
 import { connect } from "@/lib/utils/db";
-import Categories from "@/models/Categories";
 import Entries from "@/models/Entries";
 import { NextResponse } from "next/server";
 
@@ -10,7 +9,7 @@ export const GET = async (request: Request, { params }: any) => {
     await connect();
 
     const skipPost = 1;
-    const posts = await Entries.find({ category: [params.slug] }).sort("title");
+    const posts = await Entries.find({ category: params.slug }).sort("title");
 
     return new NextResponse(JSON.stringify(posts), { status: 200 });
   } catch (error) {

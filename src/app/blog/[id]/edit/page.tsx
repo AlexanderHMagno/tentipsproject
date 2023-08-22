@@ -88,8 +88,10 @@ export default function Home({ params }: any) {
     setCategoriesHolder([...categoriesHolder, elem.target.value]);
   };
 
-  const removeCategory = (elem: any) => {
-    setCategoriesHolder([...categoriesHolder, elem.target.value]);
+  const removeCategory = (elem: string) => {
+    setCategoriesHolder(
+      [...categoriesHolder].filter((cat: string) => cat != elem)
+    );
   };
 
   async function onSubmit() {
@@ -153,7 +155,7 @@ export default function Home({ params }: any) {
         <div className="sm:mx-0">
           <Image
             src={`${process.env.NEXT_PUBLIC_AWS_S3_BLOG_IMAGES_URL}${img}`}
-            loading="lazy"
+            priority
             width={1300}
             height={630}
             decoding="async"
@@ -174,7 +176,7 @@ export default function Home({ params }: any) {
               <Badge
                 className="bg-green-400 hover:bg-blue-400 mr-5"
                 key={tag}
-                onClick={(e) => removeCategory(e)}
+                onClick={(e) => removeCategory(tag)}
               >
                 {tag}
               </Badge>

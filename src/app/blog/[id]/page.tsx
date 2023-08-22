@@ -97,10 +97,10 @@ const Blog = async ({ params }: any) => {
           <div className="sm:mx-0">
             <Image
               src={`${process.env.NEXT_PUBLIC_AWS_S3_BLOG_IMAGES_URL}${img}`}
-              loading="lazy"
               width={1300}
               height={630}
               decoding="async"
+              priority
               className={`shadow-sm w-full max-w-full z-0 ${styles.picturepost}`}
               alt={`image of ${tags.join(", ")} `}
             />
@@ -119,12 +119,11 @@ const Blog = async ({ params }: any) => {
           <div className="mb-6 text-lg ">
             {category &&
               category.map((tag: string) => (
-                <Badge
-                  className="bg-orange-400 hover:bg-blue-400 mr-5"
-                  key={tag}
-                >
-                  {tag}
-                </Badge>
+                <Link key={tag} href={`/categories/${tag}`}>
+                  <Badge className="bg-orange-400 hover:bg-blue-400 mr-5">
+                    {tag}
+                  </Badge>
+                </Link>
               ))}
             {tags.map((tag: string) => (
               <Badge className="bg-green-400 hover:bg-blue-400 mr-5" key={tag}>
