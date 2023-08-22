@@ -251,9 +251,14 @@ export async function generateEntryFromInput(
       max_tokens: 2000,
     });
 
+    console.log(2);
     const content = completion.data.choices[0].text?.trim();
 
+    console.log(1);
+
     const lowerTags = tags.map((elem: string) => elem.toLowerCase());
+
+    console.log("here after creation and entry");
 
     await Entries.create({
       title,
