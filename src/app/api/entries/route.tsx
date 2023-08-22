@@ -66,8 +66,10 @@ export const POST = async (request: Request) => {
       { status: 200 }
     );
   } catch (error: any) {
+    console.log(error);
     // Consider adjusting the error handling logic for your use case
     if (error.response) {
+      console.log(error.response);
       return new NextResponse(JSON.stringify(error.response?.data), {
         status: error.response?.status,
       });
@@ -240,6 +242,8 @@ export async function generateEntryFromInput(
 
     const { imageUrl, imageUser } = await generateIMAGE(tags);
 
+    console.log("here After Image");
+
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: generatePrompt(solicitude),
@@ -250,6 +254,7 @@ export async function generateEntryFromInput(
     const content = completion.data.choices[0].text?.trim();
 
     const lowerTags = tags.map((elem: string) => elem.toLowerCase());
+
     await Entries.create({
       title,
       desc: short,
@@ -262,12 +267,14 @@ export async function generateEntryFromInput(
       likes: getRandomInt(200, 50),
     });
 
+    console.log("here After entry");
     const cat = await Categories.findOne({ title: category });
     const merge = !cat.group ? [] : cat.group;
     const merger = Array.from(new Set(merge.concat(lowerTags)));
 
     await Categories.findOneAndUpdate({ title: category }, { group: merger });
 
+    console.log("here After Catgory");
     return content;
   } catch (e) {
     console.log(e);
