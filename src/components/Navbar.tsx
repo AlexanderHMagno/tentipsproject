@@ -23,7 +23,7 @@ function Navbar() {
     { id: 6, title: "Compose", path: "/blog/create", auth: authenticated },
     { id: 7, title: "Queue", path: "/blog/queue", auth: authenticated },
     { id: 8, title: "Community  ", path: "/community", auth: authenticated },
-    { id: 9, title: "Login", path: "/admin/login", auth: !authenticated },
+    // { id: 9, title: "Login", path: "/admin/login", auth: !authenticated },
   ];
 
   const closeProgam = () => {
