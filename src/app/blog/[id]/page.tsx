@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Metadata, ResolvingMetadata } from "next";
 import { WritterArea } from "@/components/writterArea";
 import { Icons } from "@/components/icons";
+import EditEntry from "@/components/auth/editEntry";
 
 interface props {
   title: string;
@@ -86,11 +87,7 @@ const Blog = async ({ params }: any) => {
             <time dateTime={createdAt}>{format(date, "LLLL d, yyyy")}</time>
           </span>
 
-          <Link href={`./${_id}/edit`}>
-            <button className="ml-5 py-2 px-5 text-1xl rounded-full bg-green-500">
-              Edit
-            </button>
-          </Link>
+          <EditEntry id={_id} />
         </div>
 
         <div className={`mb-10 sm:mx-0  ${styles.picture}`}>
