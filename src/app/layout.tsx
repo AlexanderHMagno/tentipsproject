@@ -5,8 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Session from "@/context/session-provider";
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
-import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import AdsenseClient from "@/components/adSense";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,11 +36,7 @@ export default function RootLayout({
             <Footer />
           </Session>
         </ThemeProvider>
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7470419655173226"
-          crossOrigin="anonymous"
-        ></Script>
+        <AdsenseClient />
         <Analytics />
       </body>
     </html>

@@ -1,5 +1,4 @@
 import EntryCard from "@/components/EntryCard";
-import AdsenseClient from "@/components/adSense";
 
 const getData = async () => {
   const data = await fetch(`${process.env.PROJECT_URL}/api/entries`, {
@@ -28,7 +27,6 @@ export default async function Blog() {
             {data.map((elem: any, idx: number) => (
               <span key={elem._id}>
                 <EntryCard elem={elem} lazy={idx > 10} />
-                {idx % 10 == 0 ?? <AdsenseClient />}
               </span>
             ))}
             <span></span>

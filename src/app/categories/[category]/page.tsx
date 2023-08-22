@@ -1,5 +1,4 @@
 import EntryCard from "@/components/EntryCard";
-import AdsenseClient from "@/components/adSense";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import STR from "@supercharge/strings";
@@ -34,7 +33,6 @@ export default async function Blog({ params }: any) {
             {data.map((elem: any, idx: number) => (
               <span key={elem._id}>
                 <EntryCard elem={elem} lazy={idx > 10} />
-                {idx % 10 == 0 ?? <AdsenseClient />}
               </span>
             ))}
             <span></span>
