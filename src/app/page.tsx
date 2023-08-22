@@ -1,9 +1,9 @@
-import About from "@/app/about/page";
+import Blog from "@/app/blog/page";
 
 export default function Home() {
   return (
     <>
-      <About />;
+      <Blog />;
     </>
   );
 }
