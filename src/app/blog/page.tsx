@@ -3,7 +3,7 @@ import AdsenseClient from "@/components/adSense";
 
 const getData = async () => {
   const data = await fetch(`${process.env.PROJECT_URL}/api/entries`, {
-    cache: "default",
+    next: { revalidate: 3600 },
   });
 
   if (!data.ok) {

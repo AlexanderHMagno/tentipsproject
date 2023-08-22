@@ -9,9 +9,7 @@ import {
 } from "@/components/ui/table";
 
 const getdata = async () => {
-  const data = await fetch(`${process.env.PROJECT_URL}api/queue`, {
-    cache: "no-store",
-  });
+  const data = await fetch(`${process.env.PROJECT_URL}api/queue`);
 
   if (!data.ok) {
     return new Promise((resolve, reject) => resolve([]));
