@@ -1,14 +1,20 @@
 "use client";
-import { Adsense } from "@ctrl/react-adsense";
+import Script from "next/script";
 
 export default function AdsenseClient() {
   return (
-    <Adsense
-      client="ca-pub-7470419655173226"
+    <Script
+      id="Adsense-id"
+      data-ad-client="ca-pub-7470419655173226"
+      async
+      strategy="afterInteractive"
       slot="5753432357"
-      style={{ display: "block" }}
-      layout="-i3-13-1y-6r+rw"
-      format="fluid"
+      data-slot="5753432357"
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+      crossOrigin="anonymous"
+      onError={(e) => {
+        console.error("Script failed to load", e);
+      }}
     />
   );
 }
