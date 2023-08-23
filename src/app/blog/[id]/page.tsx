@@ -123,20 +123,16 @@ const Blog = async ({ params }: any) => {
         </div>
 
         <div className="max-w-2xl mx-auto mb-10">
-          <div className="mb-6 text-lg ">
+          <div className="mb-6 text-lg text-white">
             {category &&
               category.map((tag: string) => (
                 <Link key={tag} href={`/categories/${tag}`}>
-                  <Badge className="bg-orange-400 hover:bg-blue-400 mr-5">
-                    {tag}
-                  </Badge>
+                  <Badge className="bg-brand2 hover:bg-brand mr-5">{tag}</Badge>
                 </Link>
               ))}
             {tags.map((tag: string) => (
               <Link key={tag} href={`/categories/${tag}`}>
-                <Badge className="bg-green-400 hover:bg-blue-400 mr-5">
-                  {tag}
-                </Badge>
+                <Badge className="bg-brand3 hover:bg-brand mr-5">{tag}</Badge>
               </Link>
             ))}
           </div>
