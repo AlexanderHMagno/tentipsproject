@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import Image from "next/image";
 import DarkToggle from "@/components/dark-toggle";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "./ui/button";
