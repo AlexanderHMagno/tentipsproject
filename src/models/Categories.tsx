@@ -12,6 +12,11 @@ export const CategoriesSchema = new Schema(
         type: String,
       },
     ],
+    writters: [
+      {
+        type: String,
+      },
+    ],
   },
   { timestamps: true }
 );

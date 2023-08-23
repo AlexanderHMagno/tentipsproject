@@ -5,12 +5,11 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { connect } from "@/lib/utils/db";
 import { NextResponse } from "next/server";
 import Entries from "@/models/Entries";
-import Categories from "@/models/Categories";
+import Categories, { CategoriesSchema } from "@/models/Categories";
 import Queue from "@/models/Queue";
 import { getRandomInt } from "@/lib/functions";
 import OPENAI from "@/lib/api/openAi";
 import User, { userCreators } from "@/models/User";
-import { categories } from "@/lib/data/categories";
 
 export const GET = async (request: Request) => {
   try {
@@ -181,7 +180,11 @@ async function generateNewEntryToQueue(data: any): Promise<boolean> {
     try {
       const OpenAI = new OPENAI();
 
-      let request = data.allCategories ? categories : [data.category];
+      let request = data.allCategories
+        ? (await Categories.find().select("title")).map(
+            (x: { title: string }) => x.title
+          )
+        : [data.category];
 
       request.forEach(async (category) => {
         const completion = await OpenAI.generateRequest(
@@ -192,13 +195,18 @@ async function generateNewEntryToQueue(data: any): Promise<boolean> {
 
         const content = completion.data.choices[0].text?.trim();
         const inputs = content?.replaceAll(/[\d.]+\s/g, "").split("\n");
+        const cat: any = await Categories.findOne({ title: category });
 
         inputs?.map(async (topic: string) => {
+          let author = userCreators[getRandomInt(userCreators.length)];
+          if (cat.writters) {
+            author = cat.writters[getRandomInt(cat.writters.length)];
+          }
           const createQueue = await Queue.create({
             title: topic,
             category: category,
             created: false,
-            author: userCreators[getRandomInt(userCreators.length)],
+            author,
           });
         });
       });
@@ -242,8 +250,6 @@ export async function generateEntryFromInput(
 
     const { imageUrl, imageUser } = await generateIMAGE(tags);
 
-    console.log("here After Image");
-
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: generatePrompt(solicitude),
@@ -251,14 +257,8 @@ export async function generateEntryFromInput(
       max_tokens: 2000,
     });
 
-    console.log(2);
     const content = completion.data.choices[0].text?.trim();
-
-    console.log(1);
-
     const lowerTags = tags.map((elem: string) => elem.toLowerCase());
-
-    console.log("here after creation and entry");
 
     await Entries.create({
       title,
@@ -272,14 +272,12 @@ export async function generateEntryFromInput(
       likes: getRandomInt(200, 50),
     });
 
-    console.log("here After entry");
     const cat = await Categories.findOne({ title: category });
     const merge = !cat.group ? [] : cat.group;
     const merger = Array.from(new Set(merge.concat(lowerTags)));
 
     await Categories.findOneAndUpdate({ title: category }, { group: merger });
 
-    console.log("here After Catgory");
     return content;
   } catch (e) {
     console.log(e);

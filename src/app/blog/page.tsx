@@ -1,9 +1,11 @@
 import EntryCard from "@/components/EntryCard";
+import { configCache } from "@/lib/api/helpers/connections";
 
 const getData = async () => {
-  const data = await fetch(`${process.env.PROJECT_URL}/api/entries`, {
-    next: { revalidate: 3600 },
-  });
+  const data = await fetch(
+    `${process.env.PROJECT_URL}/api/entries`,
+    configCache()
+  );
 
   if (!data.ok) {
     return new Promise<any>((resolve, reject) => resolve([]));
