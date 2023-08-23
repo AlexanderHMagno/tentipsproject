@@ -102,7 +102,20 @@ const Blog = async ({ params }: any) => {
         </div>
 
         {imageUser && (
-          <small className="-mt-16 mb-5 block ml-5 bg-black text-white">{`by ${imageUser} via Pixabay`}</small>
+          <small className="-mt-16 mb-5 block ml-5 bg-black text-white">
+            by{" "}
+            <Link
+              aria-label={`image Author ${imageUser}`}
+              target="_blank"
+              href={`https://pixabay.com/users/${imageUser}`}
+            >
+              {imageUser}
+            </Link>{" "}
+            via{" "}
+            <Link target="_blank" href={"https://pixabay.com"}>
+              Pixabay
+            </Link>
+          </small>
         )}
 
         <div className="border-y-2 border-gray-100 py-2 w-full my-2 flex justify-center">
