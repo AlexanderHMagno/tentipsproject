@@ -6,7 +6,7 @@ const getData = async () => {
   });
 
   if (!data.ok) {
-    return new Promise((resolve, reject) => resolve([]));
+    return new Promise<any>((resolve, reject) => resolve([]));
   }
 
   return data.json();

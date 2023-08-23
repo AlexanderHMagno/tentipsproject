@@ -40,20 +40,12 @@ function Navbar() {
           <Link href="/about" className="flex items-center">
             <Logo />
           </Link>
-          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 ">
-            <li>
-              <Skeleton className="h-[20px] w-[60px] bg-gray-200" />
-            </li>
-            <li>
-              <Skeleton className="h-[20px] w-[60px] bg-gray-200" />
-            </li>
-            <li>
-              <Skeleton className="w-[60px] h-[20px]  bg-gray-200" />
-            </li>
-            <li>
-              <Skeleton className="h-6   w-6 rounded-full  bg-gray-200" />
-            </li>
-          </ul>
+          <div className="hidden font-medium sm:flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 ">
+            <Skeleton className="h-[20px] w-[60px] bg-gray-200" />
+            <Skeleton className="h-[20px] w-[60px] bg-gray-200" />
+            <Skeleton className="w-[60px] h-[20px]  bg-gray-200" />
+            <Skeleton className="h-6 w-6 rounded-full  bg-gray-200" />
+          </div>
         </div>
       </nav>
     );
