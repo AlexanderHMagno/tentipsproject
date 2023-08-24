@@ -10,6 +10,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import { WritterArea } from "@/components/writterArea";
 import { Icons } from "@/components/icons";
 import EditEntry from "@/components/auth/editEntry";
+import LoveComponent from "@/components/loves";
 
 interface props {
   title: string;
@@ -62,6 +63,7 @@ const Blog = async ({ params }: any) => {
     img,
     imageUser,
     desc,
+    likes,
     category,
     content,
     tags,
@@ -88,6 +90,9 @@ const Blog = async ({ params }: any) => {
           <EditEntry id={_id} />
         </div>
 
+        <div className="border-y-2 border-gray-50 py-2 w-full my-2 flex justify-center h-10">
+          <LoveComponent likes={likes} id={_id} />
+        </div>
         <div className={`mb-10 sm:mx-0  ${styles.picture}`}>
           <div className="sm:mx-0">
             <Image
@@ -118,10 +123,6 @@ const Blog = async ({ params }: any) => {
           </small>
         )}
 
-        <div className="border-y-2 border-gray-100 py-2 w-full my-2 flex justify-center">
-          <Icons.twitter className="h-4 w-4"></Icons.twitter>
-        </div>
-
         <div className="max-w-2xl mx-auto mb-10">
           <div className="mb-6 text-lg text-white">
             {category &&
@@ -143,6 +144,9 @@ const Blog = async ({ params }: any) => {
           >
             <div dangerouslySetInnerHTML={{ __html: content }}></div>
           </div>
+        </div>
+        <div className="border-y-2 border-gray-100 py-2 w-full my-2 flex justify-center h-10">
+          <LoveComponent likes={likes} id={_id} />
         </div>
         <WritterArea id={author} />
       </article>
