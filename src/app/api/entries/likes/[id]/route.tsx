@@ -6,8 +6,6 @@ export const PATCH = async (request: Request, { params }: any) => {
   try {
     await connect();
 
-    console.log("alexander Hortua");
-
     const data = await request.json();
     const { id, upvote } = data || {};
 
