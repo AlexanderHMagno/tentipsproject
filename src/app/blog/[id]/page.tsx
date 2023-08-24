@@ -90,7 +90,7 @@ const Blog = async ({ params }: any) => {
           <EditEntry id={_id} />
         </div>
 
-        <div className="border-y-2 border-gray-50 py-2 w-full my-2 flex justify-center h-10">
+        <div className="border-y-2 border-gray-50 dark:border-gray-900 py-2 w-full my-2 flex justify-center h-10">
           <LoveComponent likes={likes} id={_id} />
         </div>
         <div className={`mb-10 sm:mx-0  ${styles.picture}`}>

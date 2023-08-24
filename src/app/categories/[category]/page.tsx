@@ -2,10 +2,12 @@ import EntryCard from "@/components/EntryCard";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import STR from "@supercharge/strings";
+import { configCache } from "@/lib/api/helpers/connections";
 
 const getData = async (category: string) => {
   const data = await fetch(
-    `${process.env.PROJECT_URL}/api/categories/${category}`
+    `${process.env.PROJECT_URL}/api/categories/${category}`,
+    configCache()
   );
 
   if (!data.ok) {
