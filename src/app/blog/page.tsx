@@ -1,4 +1,5 @@
 import EntryCard from "@/components/EntryCard";
+import BlogLoader from "@/components/blogLoader";
 import { configCache } from "@/lib/api/helpers/connections";
 
 const getData = async () => {
@@ -25,13 +26,14 @@ export default async function Blog() {
             Trending Now:
           </h2>
 
-          <div className="md:grid md:gap-x-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="md:grid md:gap-x-6 md:grid-cols-2 lg:grid-cols-3 h-auto">
             {data.map((elem: any, idx: number) => (
               <span key={elem._id}>
                 <EntryCard elem={elem} lazy={idx > 10} />
               </span>
             ))}
-            <span></span>
+
+            <BlogLoader />
           </div>
         </section>
       </div>

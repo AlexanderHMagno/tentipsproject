@@ -28,3 +28,7 @@ export function sleep(ms: number) {
 export function getRandomInt(max: number, min: number = 0) {
   return Math.floor(Math.random() * max) + min;
 }
+
+export function generateRandomUI(): string {
+  return Math.random().toString(16).slice(2);
+}

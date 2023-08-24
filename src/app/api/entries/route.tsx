@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 import { connect } from "@/lib/utils/db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import Entries from "@/models/Entries";
 import Categories, { CategoriesSchema } from "@/models/Categories";
 import Queue from "@/models/Queue";
@@ -11,16 +11,21 @@ import { getRandomInt } from "@/lib/functions";
 import OPENAI from "@/lib/api/openAi";
 import User, { userCreators } from "@/models/User";
 
-export const GET = async (request: Request) => {
+export const GET = async (request: NextRequest) => {
   try {
     await connect();
 
-    const skipPost = 1;
-    const posts = await Entries.find().select("-content");
+    const position = request.nextUrl.searchParams.get("pos");
+    const skipPost: number = position ? +position : 0;
+    const elements = 40;
+
+    const posts = await Entries.find()
+      .select("-content")
+      .limit(elements)
+      .skip(elements * skipPost);
 
     return new NextResponse(JSON.stringify(posts), { status: 200 });
   } catch (error: any) {
-    console.log(error);
     return new NextResponse(JSON.stringify("Not working"), { status: 400 });
   }
 };
