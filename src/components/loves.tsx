@@ -28,6 +28,7 @@ export default function LoveComponent({
   const [like, setLikes] = useState(likes);
 
   const handleLike = async () => {
+    setLikes(like + 1);
     const data = await fetch(`/api/entries/likes/${id}`, {
       method: "PATCH",
       headers: {
@@ -37,7 +38,6 @@ export default function LoveComponent({
         id,
       }),
     });
-    setLikes(like + 1);
   };
 
   return (
