@@ -21,6 +21,7 @@ export const GET = async (request: NextRequest) => {
 
     const posts = await Entries.find()
       .select("-content")
+      .sort("-createdAt")
       .limit(elements)
       .skip(elements * skipPost);
 
