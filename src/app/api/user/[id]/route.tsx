@@ -1,12 +1,12 @@
 import { connect } from "@/lib/utils/db";
 import { NextResponse } from "next/server";
-import Users from "@/models/User";
+import Writters from "@/models/Writters";
 
 export const GET = async (request: Request, { params }: any) => {
   try {
     await connect();
 
-    const user = await Users.findById(params.id);
+    const user = await Writters.findById(params.id);
 
     return new NextResponse(JSON.stringify(user), { status: 200 });
   } catch (error) {

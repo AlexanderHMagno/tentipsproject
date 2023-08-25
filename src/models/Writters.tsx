@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema, model, models } = mongoose;
 
-const UserSchema = new Schema({
+const WritterSchema = new Schema({
   username: {
     type: String,
     required: true,
@@ -27,4 +27,4 @@ export const userCreators = [
   "64dc0f16ed09c5eb7c8d9be6",
 ];
 
-export default models.Users || model("Users", UserSchema);
+export default models.Writters || model("Writters", WritterSchema);

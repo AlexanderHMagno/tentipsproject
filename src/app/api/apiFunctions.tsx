@@ -4,7 +4,7 @@ import Categories, { CategoriesSchema } from "@/models/Categories";
 import Queue from "@/models/Queue";
 import { getRandomInt, removeNumbers } from "@/lib/functions";
 import OPENAI from "@/lib/api/openAi";
-import User, { userCreators } from "@/models/User";
+import User, { userCreators } from "@/models/Writters";
 import { Configuration, OpenAIApi } from "openai";
 import { NextRequest, NextResponse } from "next/server";
 import Entries from "@/models/Entries";
