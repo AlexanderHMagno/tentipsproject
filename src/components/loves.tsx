@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -17,47 +17,63 @@ import {
 } from "@/components/ui/sheet";
 
 import { HeartFilledIcon, KeyboardIcon } from "@radix-ui/react-icons";
+import { configCache } from "@/lib/api/helpers/connections";
+import useSWR from "swr";
 
-export default function LoveComponent({
-  likes,
-  id,
-}: {
-  likes: number;
-  id: string;
-}) {
-  const [like, setLikes] = useState(likes);
-
-  const handleLike = async () => {
-    setLikes(like + 1);
-    const data = await fetch(`/api/entries/likes/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id,
-      }),
-    });
-  };
-
+export default function LoveComponent({ id }: { id: string }) {
   return (
     <>
       <ShowComments />
-
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger>
-            <div className="flex items-center" onClick={handleLike}>
-              <HeartFilledIcon className="text-brand w-[20px] h-[20px] mr-1"></HeartFilledIcon>
-              <span>{like}</span>
-            </div>
-          </TooltipTrigger>
-          <TooltipContent className="bg-gray-100 rounded">
-            <p>Show your love</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <ShowLove id={id} />
     </>
+  );
+}
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+function ShowLove({ id }: { id: string }) {
+  const [like, setLikes] = useState(0);
+  const { data, error, isLoading } = useSWR(
+    `/api/entries/likes/${id}`,
+    fetcher
+  );
+
+  useEffect(() => {
+    if (!isLoading) {
+      setLikes(data.likes);
+    }
+  }, [data, isLoading]);
+
+  const handleLike = async () => {
+    setLikes(like + 1);
+    const data = await fetch(
+      `/api/entries/likes/${id}`,
+      configCache(3600, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id,
+        }),
+      })
+    );
+  };
+
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger>
+          <div className="flex items-center" onClick={handleLike}>
+            <HeartFilledIcon className="text-brand w-[20px] h-[20px] mr-1"></HeartFilledIcon>
+            <span>{like}</span>
+          </div>
+        </TooltipTrigger>
+        <TooltipContent className="bg-gray-100 rounded">
+          <p>Show your love</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }
 

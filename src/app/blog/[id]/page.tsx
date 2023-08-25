@@ -62,8 +62,6 @@ const Blog = async ({ params }: any) => {
     title,
     img,
     imageUser,
-    desc,
-    likes,
     category,
     content,
     tags,
@@ -91,7 +89,7 @@ const Blog = async ({ params }: any) => {
         </div>
 
         <div className="border-y-2 border-gray-50 dark:border-gray-900 py-2 w-full my-2 flex justify-center h-10">
-          <LoveComponent likes={likes} id={_id} />
+          <LoveComponent id={_id} />
         </div>
         <div className={`mb-10 sm:mx-0  ${styles.picture}`}>
           <div className="sm:mx-0">
@@ -146,7 +144,7 @@ const Blog = async ({ params }: any) => {
           </div>
         </div>
         <div className="border-y-2 border-gray-100 py-2 w-full my-2 flex justify-center h-10">
-          <LoveComponent likes={likes} id={_id} />
+          <LoveComponent id={_id} />
         </div>
         <WritterArea id={author} />
       </article>

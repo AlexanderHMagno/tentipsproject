@@ -1,15 +1,17 @@
 import {
   Table,
-  TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { configCache } from "@/lib/api/helpers/connections";
 
 const getdata = async () => {
-  const data = await fetch(`${process.env.PROJECT_URL}api/queue`);
+  const data = await fetch(
+    `${process.env.PROJECT_URL}api/queue`,
+    configCache()
+  );
 
   if (!data.ok) {
     return new Promise((resolve, reject) => resolve([]));

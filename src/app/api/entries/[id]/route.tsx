@@ -1,7 +1,7 @@
 import { connect } from "@/lib/utils/db";
 import { NextResponse } from "next/server";
 import Entries from "@/models/Entries";
-import { generateIMAGE } from "../route";
+import { generateIMAGE } from "@/app/api/apiFunctions";
 
 export const GET = async (request: Request, { params }: any) => {
   try {

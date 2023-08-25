@@ -23,7 +23,6 @@ const accountFormSchema = z.object({
   solicitude: z.string().max(500, {
     message: "Name must not be longer than 50 characters.",
   }),
-  type: z.string(),
   category: z.string(),
   number: z.any(),
   allCategories: z.boolean(),
@@ -34,7 +33,6 @@ type AccountFormValues = z.infer<typeof accountFormSchema>;
 // This can come from your database or API.
 const defaultValues: Partial<AccountFormValues> = {
   solicitude: "",
-  type: "queue",
   category: "Animals",
   number: 10,
   allCategories: false,
@@ -58,7 +56,7 @@ export function AccountForm() {
 
   async function onSubmit(info: AccountFormValues) {
     try {
-      const response = await fetch("/api/entries", {
+      const response = await fetch("/api/queue/enqueue", {
         method: "POST",
         headers: {
           "Content-Type": "multipart/form-data",

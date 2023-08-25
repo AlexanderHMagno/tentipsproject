@@ -3,6 +3,9 @@ export const isLocal = () => process.env.ENV == "local";
 interface config {
   timer?: number;
   next?: any;
+  method?: string;
+  headers?: any;
+  body?: any;
 }
 export const configCache = (timer = 3600, additional?: config) => {
   let config: any = { ...additional };
