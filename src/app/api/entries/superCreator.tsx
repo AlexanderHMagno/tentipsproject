@@ -1,4 +1,4 @@
-import { generateEntryFromInput } from "@/app/api/entries/route";
+import { generateEntryFromInput } from "@/app/api/apiFunctions";
 import { sleep } from "@/lib/functions";
 
 const data_to_create = [
