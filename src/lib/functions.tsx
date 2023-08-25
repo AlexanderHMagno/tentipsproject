@@ -32,3 +32,10 @@ export function getRandomInt(max: number, min: number = 0) {
 export function generateRandomUI(): string {
   return Math.random().toString(16).slice(2);
 }
+
+/**
+ * Remove numbers from a string, all numbers with this char will be removed number with dot (10.)
+ */
+export function removeNumbers(content: string): string {
+  return content.replaceAll(/[\d]+[.]\s/g, "");
+}

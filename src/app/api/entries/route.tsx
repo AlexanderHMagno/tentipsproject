@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Entries from "@/models/Entries";
 import Categories, { CategoriesSchema } from "@/models/Categories";
 import Queue from "@/models/Queue";
-import { getRandomInt } from "@/lib/functions";
+import { getRandomInt, removeNumbers } from "@/lib/functions";
 import OPENAI from "@/lib/api/openAi";
 import User, { userCreators } from "@/models/User";
 
@@ -200,7 +200,7 @@ async function generateNewEntryToQueue(data: any): Promise<boolean> {
         );
 
         const content = completion.data.choices[0].text?.trim();
-        const inputs = content?.replaceAll(/[\d.]+\s/g, "").split("\n");
+        const inputs = removeNumbers(content + "").split("\n");
         const cat: any = await Categories.findOne({ title: category });
 
         inputs?.map(async (topic: string) => {
@@ -271,7 +271,7 @@ export async function generateEntryFromInput(
       desc: short,
       img: imageUrl,
       imageUser,
-      content,
+      content: removeNumbers(content + ""),
       category: [category],
       author,
       tags: lowerTags,
