@@ -17,6 +17,7 @@ import {
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import mongoose from "mongoose";
+import { Icons } from "../icons";
 
 const formSchema = z.object({
   comment: z
@@ -57,7 +58,10 @@ export default function CommentForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 text-sm"
+      >
         <FormField
           control={form.control}
           name="comment"
@@ -65,7 +69,7 @@ export default function CommentForm({
             <FormItem>
               <FormControl>
                 <Textarea
-                  className="w-full"
+                  className="w-full text-sm"
                   placeholder="Write down your thoughts"
                   {...field}
                 />
@@ -75,12 +79,18 @@ export default function CommentForm({
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          className="bg-brand !my-[-3px] text-white w-full hover:bg-brand"
-        >
-          Comment
-        </Button>
+        <div className="flex justify-end !my-[-1px]">
+          <Button
+            disabled={form.formState.isSubmitting}
+            type="submit"
+            className="bg-brand block text-white float-right rounded hover:bg-brand text-sm"
+          >
+            {form.formState.isSubmitting && (
+              <Icons.spinner className="animate-spin" />
+            )}
+            Comment
+          </Button>
+        </div>
       </form>
     </Form>
   );

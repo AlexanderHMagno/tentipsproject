@@ -23,7 +23,10 @@ export default function AddSubComment({
           <HeartFilledIcon className="text-brand" /> {likes}
         </span>
         {open ? (
-          <CrossCircledIcon onClick={() => setOpen(false)} />
+          <CrossCircledIcon
+            className="text-red-600"
+            onClick={() => setOpen(false)}
+          />
         ) : (
           <KeyboardIcon onClick={() => setOpen(true)} />
         )}
