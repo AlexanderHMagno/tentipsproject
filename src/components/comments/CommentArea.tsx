@@ -85,10 +85,12 @@ export default function CommentForm({
             type="submit"
             className="bg-brand block text-white float-right rounded hover:bg-brand text-sm"
           >
-            {form.formState.isSubmitting && (
-              <Icons.spinner className="animate-spin" />
-            )}
-            Comment
+            <span className="flex items-center">
+              {form.formState.isSubmitting && (
+                <Icons.spinner className="animate-spin" />
+              )}
+              Comment
+            </span>
           </Button>
         </div>
       </form>
