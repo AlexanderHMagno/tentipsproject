@@ -14,22 +14,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Login = () => {
   const router = useRouter();
-  const { status } = useSession();
+  const { status, data: sesssion } = useSession();
+  console.log(console.log(sesssion));
   if (status === "authenticated") {
-    router.push("/blog");
-    return;
   }
 
   return (
     <Card>
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Create an account</CardTitle>
-        <CardDescription>
-          Enter your email below to create your account
-        </CardDescription>
+        <CardTitle className="text-2xl">Log in to your account</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-4">
         <div className="grid grid-cols-2 gap-6">
@@ -42,7 +39,7 @@ const Login = () => {
             Google
           </Button>
         </div>
-        <div className="relative">
+        {/* <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t" />
           </div>
@@ -59,10 +56,15 @@ const Login = () => {
         <div className="grid gap-2">
           <Label htmlFor="password">Password</Label>
           <Input id="password" type="password" />
-        </div>
+        </div> */}
       </CardContent>
       <CardFooter>
-        <Button className="w-full">Create account</Button>
+        Don't have an account?{" "}
+        <Link href="/admin/register">
+          <Button className="bg-brand rounded ml-5 text-white hover:bg-brand hover:border-brand2 border-2">
+            Sign Up
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   );

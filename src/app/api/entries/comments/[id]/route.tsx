@@ -1,6 +1,7 @@
 import { connect } from "@/lib/utils/db";
 import { NextResponse } from "next/server";
 import Comments from "@/models/Comments";
+import { getServerSession } from "next-auth";
 
 export const GET = async (request: Request, { params }: any) => {
   try {
@@ -21,12 +22,23 @@ export const POST = async (request: Request, { params }: any) => {
 
     const data = await request.json();
 
+    const session = await getServerSession();
+
+    if (!session) {
+      return new NextResponse(
+        JSON.stringify({ is_failed: true, message: "Not Authorized" }),
+        {
+          status: 403,
+        }
+      );
+    }
+
     const { comment } = data || {};
 
     const config = {
       content: comment,
       parent: params.id,
-      name: "Alexander",
+      name: session?.user?.name,
       //   id_commenter: "233",
     };
 

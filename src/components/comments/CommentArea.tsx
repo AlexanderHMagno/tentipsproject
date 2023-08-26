@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { Types } from "mongoose";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+
 import {
   Form,
   FormControl,
@@ -16,8 +15,8 @@ import {
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import mongoose from "mongoose";
 import { Icons } from "../icons";
+import { useSession } from "next-auth/react";
 
 const formSchema = z.object({
   comment: z
@@ -33,6 +32,8 @@ export default function CommentForm({
   id: string;
   mutate: () => void;
 }) {
+  const { data: session } = useSession();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,9 +53,12 @@ export default function CommentForm({
     });
 
     const data = await submit.json();
+
     mutate();
     form.reset();
   }
+
+  if (!session?.user) return <h1>Login For adding a comment</h1>;
 
   return (
     <Form {...form}>
