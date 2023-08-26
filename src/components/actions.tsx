@@ -1,11 +1,31 @@
-import Comments from "./comments";
+import { KeyboardIcon } from "@radix-ui/react-icons";
+import Comments from "./comments/comments";
 import ShowLove from "./loves";
 import { Types } from "mongoose";
+
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetDescription,
+} from "@/components/ui/sheet";
 
 export default function ActionsComponent({ id }: { id: string }) {
   return (
     <>
-      <Comments id={new Types.ObjectId(id)} />
+      <Sheet>
+        <SheetTrigger>
+          <KeyboardIcon className="w-[20px] h-[20px] mr-10" />
+        </SheetTrigger>
+        <SheetContent className="bg-white dark:bg-black">
+          <SheetHeader>
+            <SheetDescription className="h-[100vh]">
+              <Comments id={new Types.ObjectId(id)} />
+            </SheetDescription>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
       <ShowLove id={id} />
     </>
   );

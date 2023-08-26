@@ -14,11 +14,7 @@ export const CommentsSchema = new Schema(
     id_commenter: {
       type: Types.ObjectId,
     },
-
     parent: {
-      type: Types.ObjectId,
-    },
-    entry: {
       type: Types.ObjectId,
     },
     likes: {

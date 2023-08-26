@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -22,11 +21,17 @@ import mongoose from "mongoose";
 const formSchema = z.object({
   comment: z
     .string()
-    .min(2)
+    .min(1)
     .max(1500, { message: "Message must be at most 1500 characteres" }),
 });
 
-export default function CommentForm({ id }: { id: string }) {
+export default function CommentForm({
+  id,
+  mutate,
+}: {
+  id: string;
+  mutate: () => void;
+}) {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,10 +45,14 @@ export default function CommentForm({ id }: { id: string }) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
 
-    const submit = fetch(`/api/entries/comments/${id}`, {
+    const submit = await fetch(`/api/entries/comments/${id}`, {
       method: "POST",
       body: JSON.stringify(values),
     });
+
+    const data = await submit.json();
+    mutate();
+    form.reset();
   }
 
   return (
@@ -54,9 +63,12 @@ export default function CommentForm({ id }: { id: string }) {
           name="comment"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Comment</FormLabel>
               <FormControl>
-                <Textarea placeholder="Write down your thoughts" {...field} />
+                <Textarea
+                  className="w-full"
+                  placeholder="Write down your thoughts"
+                  {...field}
+                />
               </FormControl>
 
               <FormMessage />
@@ -65,7 +77,7 @@ export default function CommentForm({ id }: { id: string }) {
         />
         <Button
           type="submit"
-          className="bg-brand text-white w-full hover:bg-brand"
+          className="bg-brand !my-[-3px] text-white w-full hover:bg-brand"
         >
           Comment
         </Button>

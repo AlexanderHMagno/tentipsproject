@@ -6,7 +6,7 @@ export const GET = async (request: Request, { params }: any) => {
   try {
     await connect();
 
-    const comments = await Comments.find({ entry: params.id }).sort(
+    const comments = await Comments.find({ parent: params.id }).sort(
       "-createdAt"
     );
     return new NextResponse(JSON.stringify(comments), { status: 200 });
@@ -21,13 +21,11 @@ export const POST = async (request: Request, { params }: any) => {
 
     const data = await request.json();
 
-    console.log(data);
-
     const { comment } = data || {};
 
     const config = {
       content: comment,
-      entry: params.id,
+      parent: params.id,
       name: "Alexander",
       //   id_commenter: "233",
     };
