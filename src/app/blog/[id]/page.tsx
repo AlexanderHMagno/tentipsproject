@@ -10,7 +10,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import { WritterArea } from "@/components/writterArea";
 import { Icons } from "@/components/icons";
 import EditEntry from "@/components/auth/editEntry";
-import LoveComponent from "@/components/loves";
+import Actions from "@/components/actions";
 
 interface props {
   title: string;
@@ -89,7 +89,7 @@ const Blog = async ({ params }: any) => {
         </div>
 
         <div className="border-y-2 border-gray-50 dark:border-gray-900 py-2 w-full my-2 flex justify-center h-10">
-          <LoveComponent id={_id} />
+          <Actions id={_id} />
         </div>
         <div className={`mb-10 sm:mx-0  ${styles.picture}`}>
           <div className="sm:mx-0">
@@ -143,9 +143,7 @@ const Blog = async ({ params }: any) => {
             <div dangerouslySetInnerHTML={{ __html: content }}></div>
           </div>
         </div>
-        <div className="border-y-2 border-gray-100 py-2 w-full my-2 flex justify-center h-10">
-          <LoveComponent id={_id} />
-        </div>
+        <div className="border-y-2 border-gray-100 py-2 w-full my-2 flex justify-center h-10"></div>
         <WritterArea id={author} />
       </article>
     </>

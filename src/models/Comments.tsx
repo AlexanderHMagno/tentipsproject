@@ -16,10 +16,14 @@ export const CommentsSchema = new Schema(
     },
 
     parent: {
-      typer: Types.ObjectId,
+      type: Types.ObjectId,
+    },
+    entry: {
+      type: Types.ObjectId,
     },
     likes: {
       type: Number,
+      default: 0,
     },
   },
   { timestamps: true }

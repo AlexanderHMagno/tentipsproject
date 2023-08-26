@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import {
   Tooltip,
@@ -7,26 +8,12 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-
 import { HeartFilledIcon, KeyboardIcon } from "@radix-ui/react-icons";
 import { configCache } from "@/lib/api/helpers/connections";
 import useSWR from "swr";
 
 export default function LoveComponent({ id }: { id: string }) {
-  return (
-    <>
-      <ShowComments />
-      <ShowLove id={id} />
-    </>
-  );
+  return <ShowLove id={id} />;
 }
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -74,25 +61,5 @@ function ShowLove({ id }: { id: string }) {
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
-  );
-}
-
-function ShowComments() {
-  return (
-    <Sheet>
-      <SheetTrigger>
-        <KeyboardIcon className="w-[20px] h-[20px] mr-10" />
-      </SheetTrigger>
-      <SheetContent className="bg-white">
-        <SheetHeader>
-          <SheetTitle>Comment</SheetTitle>
-          <SheetDescription>
-            <h1 className="font-bold text-3xl mb-10">Comming soon</h1>
-            Would you like to comment? Please create an account to add your
-            comments!
-          </SheetDescription>
-        </SheetHeader>
-      </SheetContent>
-    </Sheet>
   );
 }
