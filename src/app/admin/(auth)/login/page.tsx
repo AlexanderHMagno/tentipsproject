@@ -61,7 +61,7 @@ const Login = () => {
         </div> */}
       </CardContent>
       <CardFooter>
-        Don't have an account? <Button></Button>{" "}
+        Do not have an account? <Button></Button>{" "}
         <Link href="/admin/register">Sign Up</Link>
       </CardFooter>
     </Card>
