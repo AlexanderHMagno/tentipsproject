@@ -10,9 +10,9 @@ import { Icons } from "../icons";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export default function Comments({ id }: { id: Types.ObjectId }) {
+export default function Comments({ id }: { id: string }) {
   const { data, error, isLoading, mutate } = useSWR(
-    `/api/entries/comments/${id.toString()}`,
+    `/api/entries/comments/${id}`,
     fetcher
   );
 
@@ -20,7 +20,7 @@ export default function Comments({ id }: { id: Types.ObjectId }) {
 
   return (
     <div>
-      <CommentForm id={id.toString()} mutate={mutate} />
+      <CommentForm id={id} mutate={mutate} />
       <div className="mt-5 overflow-x-scroll overflow-y-scroll h-4/6">
         {data.map((x: any) => (
           <CreateCard key={x._id} {...x} />

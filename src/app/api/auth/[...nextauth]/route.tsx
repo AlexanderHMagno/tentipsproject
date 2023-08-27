@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import { connect } from "@/lib/utils/db";
@@ -7,7 +7,7 @@ import { MongoClient } from "mongodb";
 const client = new MongoClient(process.env.MONGO || "");
 const clientPromise = client.connect();
 
-const authOptions = NextAuth({
+export const authOptions: NextAuthOptions = {
   //@ts-ignore
   adapter: MongoDBAdapter(clientPromise),
   providers: [
@@ -20,6 +20,8 @@ const authOptions = NextAuth({
     signIn: "/admin/login",
     newUser: "/admin/register",
   },
-});
+};
 
-export { authOptions as GET, authOptions as POST };
+const nextAuthorization = NextAuth(authOptions);
+
+export { nextAuthorization as GET, nextAuthorization as POST };

@@ -21,7 +21,7 @@ export default function ActionsComponent({ id }: { id: string }) {
         <SheetContent className="bg-white dark:bg-black">
           <SheetHeader>
             <SheetDescription className="h-[100vh]">
-              <Comments id={new Types.ObjectId(id)} />
+              <Comments id={id} />
             </SheetDescription>
           </SheetHeader>
         </SheetContent>

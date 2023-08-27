@@ -34,7 +34,7 @@ export default function AddSubComment({
 
       {open && (
         <div className="w-[90%] m-auto">
-          <Comments id={new Types.ObjectId(id)} />
+          <Comments id={id} />
         </div>
       )}
     </div>

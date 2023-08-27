@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import Comments from "@/models/Comments";
 import { getServerSession } from "next-auth";
 
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
 export const GET = async (request: Request, { params }: any) => {
   try {
     await connect();
@@ -22,7 +24,7 @@ export const POST = async (request: Request, { params }: any) => {
 
     const data = await request.json();
 
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
 
     if (!session) {
       return new NextResponse(
