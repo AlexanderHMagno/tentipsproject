@@ -21,6 +21,8 @@ const Login = () => {
   const { status, data: sesssion } = useSession();
   console.log(console.log(sesssion));
   if (status === "authenticated") {
+    router.push("/blog");
+    return;
   }
 
   return (
@@ -59,12 +61,8 @@ const Login = () => {
         </div> */}
       </CardContent>
       <CardFooter>
-        Don't have an account?{" "}
-        <Link href="/admin/register">
-          <Button className="bg-brand rounded ml-5 text-white hover:bg-brand hover:border-brand2 border-2">
-            Sign Up
-          </Button>
-        </Link>
+        Don't have an account? <Button></Button>{" "}
+        <Link href="/admin/register">Sign Up</Link>
       </CardFooter>
     </Card>
   );
