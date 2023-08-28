@@ -31,6 +31,8 @@ export default function EntryCard({
             className="rounded-md object-cover align-baseline"
             loading={lazy ? "lazy" : undefined}
             priority={!lazy}
+            placeholder="blur"
+            blurDataURL="/images/blur.png"
           />
         </AspectRatio>
         <Link href={`/blog/${elem._id}`}>

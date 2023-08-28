@@ -1,7 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import { connect } from "@/lib/utils/db";
 import { MongoClient } from "mongodb";
 
 const client = new MongoClient(process.env.MONGO || "");
@@ -17,8 +16,9 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/admin/login",
-    newUser: "/admin/register",
+    signIn: "/blog",
+    newUser: "/blog",
+    signOut: "/blog",
   },
 };
 

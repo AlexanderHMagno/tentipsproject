@@ -100,6 +100,8 @@ const Blog = async ({ params }: any) => {
               priority
               className={`shadow-sm w-full max-w-full z-0 ${styles.picturepost}`}
               alt={`image of ${tags.join(", ")} `}
+              placeholder="blur"
+              blurDataURL="/images/blur.png"
             />
           </div>
         </div>
