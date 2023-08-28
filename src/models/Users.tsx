@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const { Schema, models, Types } = mongoose;
 
 const UserSchema = new Schema({
-  username: {
+  name: {
     type: String,
     required: true,
   },
@@ -10,12 +10,20 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  image: {
+    type: String,
+  },
   interest: [
     {
       type: String,
     },
   ],
   likes: [
+    {
+      type: Types.ObjectId,
+    },
+  ],
+  likesComments: [
     {
       type: Types.ObjectId,
     },

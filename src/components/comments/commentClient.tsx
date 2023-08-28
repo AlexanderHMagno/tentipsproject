@@ -6,7 +6,8 @@ import {
 } from "@radix-ui/react-icons";
 import { useState } from "react";
 import Comments from "./comments";
-import { Types } from "mongoose";
+
+import { configCache } from "@/lib/api/helpers/connections";
 
 export default function AddSubComment({
   id,
@@ -16,11 +17,33 @@ export default function AddSubComment({
   likes: number;
 }) {
   const [open, setOpen] = useState<boolean>(false);
+  const [numLikes, setNumLikes] = useState<number>(likes);
+
+  const handleHeart = async () => {
+    const update = await fetch(
+      `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/entries/comments/${id}`,
+      configCache(3600, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "like",
+        }),
+      })
+    );
+
+    const data = await update.json();
+    setNumLikes(data.likes);
+  };
+
   return (
     <div className="flex-col">
       <div className="flex w-full justify-end px-2 items-center">
         <span className="flex items-center mr-5">
-          <HeartFilledIcon className="text-brand" /> {likes}
+          <HeartFilledIcon
+            className="text-brand"
+            cursor={"pointer"}
+            onClick={handleHeart}
+          />{" "}
+          {numLikes}
         </span>
         {open ? (
           <CrossCircledIcon
@@ -28,7 +51,7 @@ export default function AddSubComment({
             onClick={() => setOpen(false)}
           />
         ) : (
-          <KeyboardIcon onClick={() => setOpen(true)} />
+          <KeyboardIcon cursor={"pointer"} onClick={() => setOpen(true)} />
         )}
       </div>
 
