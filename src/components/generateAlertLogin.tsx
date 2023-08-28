@@ -2,7 +2,6 @@
 import Login from "@/app/admin/(auth)/login/page";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -11,12 +10,19 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useSession } from "next-auth/react";
 
 export default function GenerateAlert({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { data: session } = useSession();
+
+  if (session) {
+    return children;
+  }
+
   return (
     <AlertDialog>
       <AlertDialogTrigger>{children}</AlertDialogTrigger>
