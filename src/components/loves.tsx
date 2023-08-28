@@ -32,7 +32,6 @@ function ShowLove({ id }: { id: string }) {
   }, [data, isLoading]);
 
   const handleLike = async () => {
-    setLikes(like + 1);
     const data = await fetch(
       `/api/entries/likes/${id}`,
       configCache(3600, {
@@ -45,6 +44,10 @@ function ShowLove({ id }: { id: string }) {
         }),
       })
     );
+
+    const info = await data.json();
+
+    setLikes(info.likes);
   };
 
   return (
