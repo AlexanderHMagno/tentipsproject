@@ -1,12 +1,13 @@
-"use client";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export default function EditEntry({ id }: any) {
-  const { data: session, status } = useSession();
-  const authenticated = status === "authenticated";
+export default async function EditEntry({ id }: any) {
+  const session = await getServerSession(authOptions);
 
-  if (!authenticated) return <></>;
+  //TODO: create a role for this account...
+  const admin = session?.user?.email === "alexander.hortua10@gmail.com";
+  if (!admin) return <></>;
 
   return (
     <Link href={`./${id}/edit`}>
