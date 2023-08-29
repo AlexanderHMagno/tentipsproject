@@ -5,7 +5,7 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Toggle } from "@/components/ui/toggle";
 
-export default function ModeToggle() {
+export default function ModeToggle({ ...params }) {
   const { setTheme, theme } = useTheme();
 
   const updateTheme = () => {
@@ -13,7 +13,12 @@ export default function ModeToggle() {
   };
 
   return (
-    <Toggle aria-label="Toggle italic" onClick={updateTheme} className="-m-2">
+    <Toggle
+      aria-label="Toggle italic"
+      onClick={updateTheme}
+      className={"-m-2"}
+      {...params}
+    >
       <Sun className="hidden dark:block text-teal-500" />
       <Moon className={"dark:hidden text-teal-500"} />
     </Toggle>
