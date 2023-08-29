@@ -5,7 +5,7 @@ export default withAuth(
   // `withAuth` augments your `Request` with the user's token.
   function middleware(req) {
     console.log("Santa cachucha");
-    console.log(req.nextauth.token);
+    console.log(req.nextauth, req.nextauth.token);
   },
   {
     callbacks: {
@@ -18,8 +18,8 @@ export default withAuth(
 export const config = {
   matcher: [
     "/community/:function*",
-    "/blog/queue",
-    "/blog/create",
-    "/blog/:path*/edit",
+    // "/blog/queue",
+    // "/blog/create",
+    // "/blog/:path*/edit",
   ],
 };

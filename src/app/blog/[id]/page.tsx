@@ -145,7 +145,7 @@ const Blog = async ({ params }: any) => {
             <div dangerouslySetInnerHTML={{ __html: content }}></div>
           </div>
         </div>
-        <div className="border-y-2 border-gray-100 py-2 w-full my-2 flex justify-center h-10"></div>
+
         <WritterArea id={author} />
       </article>
     </>
