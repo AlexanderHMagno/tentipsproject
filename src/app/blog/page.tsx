@@ -23,10 +23,22 @@ export default async function Blog() {
 
   return (
     <>
-      <div className="container px-1 mx-auto md:px-6">
+      <div className="w-full hidden md:block h-[300px] bg-brand ">
+        <div className="md:p-24  ml-16 w-[480px] ">
+          <h1 className="text-6xl font-extrabold leading-tight tracking-tight antialiased ">
+            <span className="block -mb-5">Simplifying</span>
+            <span>Knowledge</span>
+          </h1>
+
+          <p className="text-lg  leading-tight text-center">
+            10 Tips at a Time!
+          </p>
+        </div>
+      </div>
+      <div className="container px-1 mx-auto  md:px-24 md:py-10">
         <section className=" text-center lg:text-left">
           <Trending limit={6} title={true} />
-          <Separator className="my-5 bg-gray-100 dark:bg-gray-950" />
+          <Separator className="mt-5 mb-10 bg-gray-100 dark:bg-gray-950" />
           <div className="md:grid md:grid-cols-6 md:gap-6">
             <div className="col-span-4">
               <div className="md:grid md:gap-x-6 md:grid-cols-3   h-auto">

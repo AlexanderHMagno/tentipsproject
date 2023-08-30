@@ -30,7 +30,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Session>
             <Navbar />
-            <div className="flex min-h-screen flex-col items-center justify-between md:p-24">
+            <div className="flex min-h-screen flex-col items-center justify-between ">
               {children}
             </div>
             <Footer />

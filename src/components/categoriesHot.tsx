@@ -22,7 +22,7 @@ export default async function HotCategories({ limit }: { limit: number }) {
                 href={`/categories/${cat.title}`}
               >
                 <Badge
-                  className="px-5 py-2 m-1 bg-slate-100 border-0 hover:bg-brand"
+                  className="px-5 py-2 m-1 bg-slate-100 dark:bg-slate-800 border-0 hover:bg-brand"
                   variant={"outline"}
                 >
                   {cat.title}

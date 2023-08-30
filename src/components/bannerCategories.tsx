@@ -11,7 +11,7 @@ export default async function BannerCategories() {
   const data = await categories.json();
 
   return (
-    <ul className="w-[80%] m-auto pb-5 opacity-100 md:opacity-0 ease-in duration-300 hover:opacity-100 flex overflow-hidden hover:overflow-scroll  top-20 text-gray-400">
+    <ul className="bg-white dark:bg-black md:bg-transparent hover:bg-white black:hover:bg-black z-10 w-full md:w-[80%] m-auto pb-5 opacity-100 md:opacity-0 ease-in md:duration-300 hover:opacity-100 hover:text-black dark:hover:text-white flex overflow-hidden hover:overflow-scroll  top-20 text-gray-400">
       {data.map((cat: CategoriesType, idx: number) => {
         return (
           <li className=" ml-10" key={idx}>
