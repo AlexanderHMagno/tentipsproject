@@ -2,8 +2,8 @@ import EntryCard from "@/components/EntryCard";
 import BlogLoader from "@/components/blogLoader";
 import { configCache } from "@/lib/api/helpers/connections";
 import { Separator } from "@/components/ui/separator";
-import Image from "next/image";
 import Trending from "@/components/trending/Trending";
+import HotCategories from "@/components/categoriesHot";
 
 const getData = async () => {
   const data = await fetch(
@@ -27,7 +27,7 @@ export default async function Blog() {
         <section className=" text-center lg:text-left">
           <Trending limit={6} title={true} />
           <Separator className="my-5 bg-gray-100 dark:bg-gray-950" />
-          <div className="md:grid md:grid-cols-6">
+          <div className="md:grid md:grid-cols-6 md:gap-6">
             <div className="col-span-4">
               <div className="md:grid md:gap-x-6 md:grid-cols-3   h-auto">
                 {data.map((elem: any, idx: number) => (
@@ -39,7 +39,12 @@ export default async function Blog() {
                 <BlogLoader />
               </div>
             </div>
-            <div className="hidden md:grid col-span-2 border-10 border-gray-900"></div>
+            <div className="hidden w-full md:grid col-span-2 border-10 border-gray-900">
+              <section className="container">
+                <h3 className="font-bold mb-10 text-lg">Discover more Tips</h3>
+                <HotCategories limit={10} />
+              </section>
+            </div>
           </div>
         </section>
       </div>

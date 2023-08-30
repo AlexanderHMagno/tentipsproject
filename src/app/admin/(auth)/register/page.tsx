@@ -19,7 +19,7 @@ import Link from "next/link";
 const Login = () => {
   const router = useRouter();
   const { status, data: sesssion } = useSession();
-  console.log(console.log(sesssion));
+
   if (status === "authenticated") {
   }
 

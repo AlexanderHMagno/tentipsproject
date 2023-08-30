@@ -1,14 +1,21 @@
 import { connect } from "@/lib/utils/db";
 import Categories from "@/models/Categories";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (request: Request) => {
+export const GET = async (request: NextRequest) => {
   try {
     const connection = await connect();
     const skipPost = 1;
-    const posts = await Categories.find().sort("title");
+    const limit = request.nextUrl.searchParams.get("limit") || 0;
 
-    return new NextResponse(JSON.stringify(posts), { status: 200 });
+    let categories;
+    if (limit) {
+      categories = await Categories.find().limit(+limit);
+    } else {
+      categories = await Categories.find().sort("title");
+    }
+
+    return new NextResponse(JSON.stringify(categories), { status: 200 });
   } catch (error) {
     return new NextResponse(JSON.stringify("Not working"), { status: 400 });
   }
