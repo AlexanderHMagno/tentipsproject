@@ -25,7 +25,7 @@ export default async function Blog() {
     <>
       <div className="container px-1 mx-auto md:px-6">
         <section className=" text-center lg:text-left">
-          <Trending limit={6} />
+          <Trending limit={6} title={true} />
           <Separator className="my-5 bg-gray-100 dark:bg-gray-950" />
           <div className="md:grid md:grid-cols-6">
             <div className="col-span-4">

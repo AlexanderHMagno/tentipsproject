@@ -17,22 +17,29 @@ const getData = async (limit: number) => {
   return data.json();
 };
 
-export default async function Trending({ limit = 6 }: { limit: number }) {
+export default async function Trending({
+  limit = 6,
+  title = true,
+}: {
+  limit: number;
+  title: boolean;
+}) {
   const data = await getData(limit);
 
   return (
     <div>
-      <h2 className="mb-5 text-left text-lg font-bold ">
-        <Image
-          src={"/images/logo-solo.png"}
-          width={20}
-          height={50}
-          alt={"logo"}
-          className="inline"
-        />{" "}
-        Trending on 10 Tips:
-      </h2>
-
+      {title && (
+        <h2 className="mb-5 text-left text-lg font-bold  flex items-center">
+          <Image
+            src={"/images/logo-solo.png"}
+            width={20}
+            height={50}
+            alt={"logo"}
+            className="inline"
+          />{" "}
+          Trending on 10 Tips:
+        </h2>
+      )}
       <div className="md:grid md:gap-x-6 md:grid-cols-3   h-auto">
         {data.map((elem: any, idx: number) => (
           <span key={elem._id}>

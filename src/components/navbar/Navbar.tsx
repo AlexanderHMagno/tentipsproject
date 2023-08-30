@@ -8,7 +8,7 @@ function Navbar() {
   const list = [
     { id: 1, title: "Blog", path: "/blog", auth: true },
     { id: 2, title: "Topics", path: "/categories", auth: true },
-    { id: 3, title: "Write", path: "/write", auth: true },
+    { id: 3, title: "Trending", path: "/trending", auth: true },
   ];
 
   return (
