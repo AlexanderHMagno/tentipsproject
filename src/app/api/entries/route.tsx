@@ -8,14 +8,26 @@ export const GET = async (request: NextRequest) => {
     await connect();
 
     const position = request.nextUrl.searchParams.get("pos");
+    const trending = request.nextUrl.searchParams.get("trending");
+    const limit = request.nextUrl.searchParams.get("limit") || 0;
     const skipPost: number = position ? +position : 0;
     const elements = 40;
 
-    const posts = await Entries.find()
-      .select("-content")
-      .sort("-createdAt")
-      .limit(elements)
-      .skip(elements * skipPost);
+    let posts;
+
+    if (trending) {
+      posts = await Entries.find()
+        .select("-content")
+        .sort({ likes: "desc" })
+        .limit(+limit);
+    } else {
+      //Normal post request
+      posts = await Entries.find()
+        .select("-content")
+        .sort({ createdAt: "desc" })
+        .limit(elements)
+        .skip(elements * skipPost);
+    }
 
     return new NextResponse(JSON.stringify(posts), { status: 200 });
   } catch (error: any) {
