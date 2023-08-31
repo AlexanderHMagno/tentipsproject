@@ -61,13 +61,16 @@ export function AccountForm() {
   async function onSubmit(info: AccountFormValues) {
     try {
       setSubmitLoading(true);
-      const response = await fetch("/api/entries", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(info),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/entries`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(info),
+        }
+      );
 
       const data = await response.json();
       if (response.status !== 200) {

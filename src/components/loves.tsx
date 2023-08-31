@@ -23,7 +23,7 @@ function ShowLove({ id }: { id: string }) {
   const [like, setLikes] = useState(0);
 
   const { data, error, isLoading } = useSWR(
-    `/api/entries/likes/${id}`,
+    `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/entries/likes/${id}`,
     fetcher
   );
 
@@ -35,7 +35,7 @@ function ShowLove({ id }: { id: string }) {
 
   const handleLike = async () => {
     const data = await fetch(
-      `/api/entries/likes/${id}`,
+      `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/entries/likes/${id}`,
       configCache(3600, {
         method: "PATCH",
         headers: {

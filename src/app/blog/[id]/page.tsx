@@ -10,6 +10,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import { WritterArea } from "@/components/writterArea";
 import EditEntry from "@/components/auth/editEntry";
 import Actions from "@/components/actions";
+import { configCache } from "@/lib/api/helpers/connections";
 
 interface props {
   title: string;
@@ -25,7 +26,10 @@ interface props {
 }
 
 const getData = async (entry: string) => {
-  const data = await fetch(`${process.env.PROJECT_URL}/api/entries/${entry}`);
+  const data = await fetch(
+    `${process.env.PROJECT_URL}/api/entries/${entry}`,
+    configCache(360000)
+  );
 
   if (!data.ok) return notFound();
   const entries = data.json();

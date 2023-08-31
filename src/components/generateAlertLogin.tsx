@@ -1,5 +1,5 @@
 "use client";
-import { CardLogin } from "@/app/admin/(auth)/login/page";
+
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -11,6 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useSession } from "next-auth/react";
+import Cardlogin from "./loginForm";
 
 export default function GenerateAlert({
   children,
@@ -36,7 +37,7 @@ export default function GenerateAlert({
         </AlertDialogHeader>
 
         <div className="w-full m-auto">
-          <CardLogin />
+          <Cardlogin />
         </div>
 
         <div>

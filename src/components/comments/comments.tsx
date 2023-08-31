@@ -12,7 +12,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Comments({ id }: { id: string }) {
   const { data, error, isLoading, mutate } = useSWR(
-    `/api/entries/comments/${id}`,
+    `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/entries/comments/${id}`,
     fetcher
   );
 

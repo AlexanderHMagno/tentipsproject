@@ -96,19 +96,22 @@ export default function Home({ params }: any) {
 
   async function onSubmit() {
     try {
-      const response = await fetch(`/api/entries/${_id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          _id,
-          title: titleHolder,
-          content: contentHolder,
-          category: categoriesHolder,
-          requestImage: imageHolder,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/entries/${_id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            _id,
+            title: titleHolder,
+            content: contentHolder,
+            category: categoriesHolder,
+            requestImage: imageHolder,
+          }),
+        }
+      );
 
       const data = await response.json();
       if (response.status !== 200) {

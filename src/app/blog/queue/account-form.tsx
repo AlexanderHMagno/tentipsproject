@@ -56,13 +56,16 @@ export function AccountForm() {
 
   async function onSubmit(info: AccountFormValues) {
     try {
-      const response = await fetch("/api/queue/enqueue", {
-        method: "POST",
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        body: JSON.stringify(info),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/queue/enqueue`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          body: JSON.stringify(info),
+        }
+      );
 
       const data = await response.json();
       if (response.status !== 200) {

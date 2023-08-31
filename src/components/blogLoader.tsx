@@ -36,7 +36,9 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 function Page(params: { index: number }) {
   const { index } = params || {};
 
-  const url = `/api/entries?pos=${index + 1}`;
+  const url = `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/entries?pos=${
+    index + 1
+  }`;
   const { data, error, isLoading } = useSWR(url, fetcher);
 
   const [props, api] = useSpring(

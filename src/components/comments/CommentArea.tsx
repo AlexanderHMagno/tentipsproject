@@ -47,10 +47,13 @@ export default function CommentForm({
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
 
-    const submit = await fetch(`/api/entries/comments/${id}`, {
-      method: "POST",
-      body: JSON.stringify(values),
-    });
+    const submit = await fetch(
+      `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/entries/comments/${id}`,
+      {
+        method: "POST",
+        body: JSON.stringify(values),
+      }
+    );
 
     const data = await submit.json();
 
