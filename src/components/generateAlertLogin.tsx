@@ -27,7 +27,7 @@ export default function GenerateAlert({
   return (
     <AlertDialog>
       <AlertDialogTrigger>{children}</AlertDialogTrigger>
-      <AlertDialogContent className="bg-white dark:bg-black ">
+      <AlertDialogContent className="bg-white dark:bg-black">
         <AlertDialogHeader>
           <AlertDialogTitle>
             <p className="text-center">
@@ -37,8 +37,7 @@ export default function GenerateAlert({
         </AlertDialogHeader>
 
         <div className="w-full m-auto">
-          {" "}
-          <Cardlogin />{" "}
+          <Cardlogin />
         </div>
 
         <div>
