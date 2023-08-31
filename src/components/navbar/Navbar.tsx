@@ -16,7 +16,7 @@ function Navbar() {
       <nav className=" text-black bg-white border-black  dark:bg-gradient-radial dark:bg-black min-w-full">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 h-auto">
           <div className="flex items-center">
-            <Link href="/about" className="flex items-center">
+            <Link href="/about">
               <Logo />
             </Link>
             <DarkToggle />

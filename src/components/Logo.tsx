@@ -5,7 +5,7 @@ export default function Logo() {
     <Image
       width={150}
       height={150}
-      src="/images/logo.png"
+      src={"/images/logo.png"}
       alt="10 tips idea"
       priority={true}
     />
