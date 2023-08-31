@@ -66,12 +66,12 @@ export default function Menu() {
         </svg>
       </button>
       <div
-        className={`w-full absolute md:w-[250px] right-0 md:right-28  ${
+        className={`w-full z-50 absolute md:w-[250px] right-0 md:right-28  ${
           open ? "" : "hidden"
         }`}
         id="navbar-default"
       >
-        <ul className="bg-white  dark:bg-black font-medium flex flex-col p-4 md:p-5 md:w-[250px] md:float-right mt-4 border border-gray-100 rounded-lg  ">
+        <ul className="bg-white   dark:bg-black font-medium flex flex-col p-4 md:p-5 md:w-[250px] md:float-right mt-4 border border-gray-100 rounded-lg  ">
           {list
             .filter((link) => link.auth == true)
             .map((link) => {

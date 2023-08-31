@@ -17,6 +17,7 @@ export default function Categories() {
     fetcher
   );
 
+  console.log(data);
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
