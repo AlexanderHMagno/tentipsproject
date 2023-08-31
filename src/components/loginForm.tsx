@@ -24,7 +24,7 @@ export default function Cardlogin() {
 
   return (
     <Card className="border-0 ">
-      <div className="p-10">
+      <div className="p-0 md:p-10">
         <CardHeader className="space-y-1 mb-10">
           <CardTitle className="text-2xl text-center font-bold">
             Welcome Back
