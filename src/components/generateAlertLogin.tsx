@@ -1,5 +1,5 @@
 "use client";
-import Login from "@/app/admin/(auth)/login/page";
+import { CardLogin } from "@/app/admin/(auth)/login/page";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -29,20 +29,22 @@ export default function GenerateAlert({
       <AlertDialogContent className="bg-white dark:bg-black">
         <AlertDialogHeader>
           <AlertDialogTitle>
-            Create an account to show love for this story.
+            <p className="text-center">
+              Create an account to show love for this story.
+            </p>
           </AlertDialogTitle>
-          <AlertDialogDescription>
-            <div className="p-10">
-              <Login />
-            </div>
-
-            <div>
-              <p className="my-10 text-center">
-                Loves shows how much you appreciated this story.
-              </p>
-            </div>
-          </AlertDialogDescription>
         </AlertDialogHeader>
+
+        <div className="w-full m-auto">
+          <CardLogin />
+        </div>
+
+        <div>
+          <p className="text-center mt-2">
+            Loves shows how much you appreciated this story.
+          </p>
+        </div>
+
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
         </AlertDialogFooter>
