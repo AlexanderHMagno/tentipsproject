@@ -21,7 +21,6 @@ if (!cached) {
 
 async function connect() {
   if (cached.conn) {
-    console.log("Connection Cached");
     return cached.conn;
   }
 
@@ -30,7 +29,6 @@ async function connect() {
       bufferCommands: false,
     };
 
-    console.log("Connection not cached");
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
       return mongoose;
     });
