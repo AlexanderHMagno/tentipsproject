@@ -40,7 +40,7 @@ export default async function Trending({
           Trending on 10 Tips:
         </h2>
       )}
-      <div className="md:grid md:gap-x-6 md:grid-cols-3   h-auto">
+      <div className="md:grid md:gap-x-6 md:grid-cols-3 px-10  h-auto">
         {data.map((elem: any, idx: number) => (
           <span key={elem._id}>
             <TrendingCard elem={elem} idx={idx} />

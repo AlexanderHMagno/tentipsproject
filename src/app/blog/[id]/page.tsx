@@ -8,7 +8,6 @@ import { parseISO, format } from "date-fns";
 import Link from "next/link";
 import { Metadata, ResolvingMetadata } from "next";
 import { WritterArea } from "@/components/writterArea";
-import { Icons } from "@/components/icons";
 import EditEntry from "@/components/auth/editEntry";
 import Actions from "@/components/actions";
 

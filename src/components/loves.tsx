@@ -54,19 +54,10 @@ function ShowLove({ id }: { id: string }) {
 
   return (
     <GenerateAlert>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger>
-            <div className="flex items-center" onClick={handleLike}>
-              <HeartFilledIcon className="text-brand w-[20px] h-[20px] mr-1"></HeartFilledIcon>
-              <span>{like}</span>
-            </div>
-          </TooltipTrigger>
-          <TooltipContent className="bg-gray-100 rounded dark:bg-black">
-            <p>Show your love</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <div className="flex items-center" onClick={handleLike}>
+        <HeartFilledIcon className="text-brand w-[20px] h-[20px] mr-1"></HeartFilledIcon>
+        <span>{like}</span>
+      </div>
     </GenerateAlert>
   );
 }
