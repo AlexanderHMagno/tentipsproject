@@ -30,7 +30,7 @@ async function connect() {
       bufferCommands: false,
     };
 
-    consol.log("Connection not cached");
+    console.log("Connection not cached");
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
       return mongoose;
     });
