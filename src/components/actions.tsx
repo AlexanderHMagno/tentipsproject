@@ -18,12 +18,8 @@ export default function ActionsComponent({ id }: { id: string }) {
         <SheetTrigger>
           <KeyboardIcon className="w-[20px] h-[20px] mr-10" />
         </SheetTrigger>
-        <SheetContent className="bg-white dark:bg-black">
-          <SheetHeader>
-            <SheetDescription className="h-[100vh]">
-              <Comments id={id} />
-            </SheetDescription>
-          </SheetHeader>
+        <SheetContent className="bg-white dark:bg-black h-[100vh]">
+          <Comments id={id} />
         </SheetContent>
       </Sheet>
       <ShowLove id={id} />
