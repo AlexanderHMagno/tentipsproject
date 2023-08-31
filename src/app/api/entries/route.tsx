@@ -1,5 +1,5 @@
 import { generateEntryFromInput } from "../apiFunctions";
-import { connect } from "@/lib/utils/db";
+import connect from "@/lib/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 import Entries from "@/models/Entries";
 

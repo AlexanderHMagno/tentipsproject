@@ -1,25 +1,49 @@
 import mongoose from "mongoose";
 
-export const connect = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO);
-  } catch (error) {
-    console.log(error);
-  }
-};
+const MONGODB_URI = process.env.MONGO;
 
-export const disconnect = async () => {
-  try {
-    await mongoose.disconnect();
-  } catch (error) {
-    console.log(error);
-  }
-};
+if (!MONGODB_URI) {
+  throw new Error(
+    "Please define the MONGO environment variable inside .env.local"
+  );
+}
 
-export const close = async () => {
-  try {
-    await mongoose.connection.close();
-  } catch (error) {
-    console.log(error);
+/**
+ * Global is used here to maintain a cached connection across hot reloads
+ * in development. This prevents connections growing exponentially
+ * during API Route usage.
+ */
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function connect() {
+  if (cached.conn) {
+    console.log("Connection Cached");
+    return cached.conn;
   }
-};
+
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    };
+
+    consol.log("Connection not cached");
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      return mongoose;
+    });
+  }
+
+  try {
+    cached.conn = await cached.promise;
+  } catch (e) {
+    cached.promise = null;
+    throw e;
+  }
+
+  return cached.conn;
+}
+
+export default connect;

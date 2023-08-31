@@ -1,10 +1,10 @@
-import { connect } from "@/lib/utils/db";
+import connect from "@/lib/utils/db";
 import Categories from "@/models/Categories";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (request: NextRequest) => {
   try {
-    const connection = await connect();
+    await connect();
     const skipPost = 1;
     const limit = request.nextUrl.searchParams.get("limit") || 0;
 

@@ -1,4 +1,4 @@
-import { connect } from "@/lib/utils/db";
+import connect from "@/lib/utils/db";
 import Entries from "@/models/Entries";
 import { NextResponse } from "next/server";
 import STR from "@supercharge/strings";

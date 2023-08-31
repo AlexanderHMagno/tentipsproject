@@ -1,4 +1,4 @@
-import { connect } from "@/lib/utils/db";
+import connect from "@/lib/utils/db";
 import { NextResponse } from "next/server";
 import Comments from "@/models/Comments";
 import { getServerSession } from "next-auth";
