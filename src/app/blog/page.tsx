@@ -27,7 +27,7 @@ export default async function Blog() {
         <div className="md:p-24  ml-16 w-[480px] ">
           <h1 className="text-6xl font-extrabold leading-tight tracking-tight antialiased ">
             <span className="block -mb-5">Simplifying</span>
-            <span>Knowledge</span>
+            <span>Knowledge.</span>
           </h1>
 
           <p className="text-lg  leading-tight text-center">
