@@ -4,12 +4,15 @@ import Link from "next/link";
 import { Badge } from "./ui/badge";
 
 export default async function HotCategories({ limit }: { limit: number }) {
-  const categories = await fetch(
-    `${process.env.PROJECT_URL}/api/categories?limit=${limit}`,
-    configCache(36000)
-  );
+  let data: any = [];
+  try {
+    const categories = await fetch(
+      `${process.env.PROJECT_URL}/api/categories?limit=${limit}`,
+      configCache(36000)
+    );
 
-  const data = await categories.json();
+    data = await categories.json();
+  } catch (e) {}
 
   return (
     <>

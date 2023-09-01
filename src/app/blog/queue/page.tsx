@@ -15,7 +15,7 @@ export default function SettingsAccountPage() {
         <Separator />
         <AccountForm />
       </div>
-      <Queue />
+      {/* <Queue /> */}
     </>
   );
 }

@@ -4,18 +4,17 @@ import { configCache } from "@/lib/api/helpers/connections";
 import { Separator } from "@/components/ui/separator";
 import Trending from "@/components/trending/Trending";
 import HotCategories from "@/components/categoriesHot";
+import Entries from "@/models/Entries";
+import connect from "@/lib/utils/db";
 
 const getData = async () => {
-  const data = await fetch(
-    `${process.env.PROJECT_URL}/api/entries`,
-    configCache()
-  );
+  await connect();
 
-  if (!data.ok) {
-    return new Promise<any>((resolve, reject) => resolve([]));
-  }
-
-  return data.json();
+  return await Entries.find()
+    .select("-content")
+    .sort({ createdAt: "desc" })
+    .limit(40)
+    .skip(0);
 };
 
 export default async function Blog() {

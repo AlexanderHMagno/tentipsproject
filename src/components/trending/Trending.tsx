@@ -5,16 +5,21 @@ import { parseISO, format } from "date-fns";
 import { HeartFilledIcon } from "@radix-ui/react-icons";
 
 const getData = async (limit: number) => {
-  const data = await fetch(
-    `${process.env.PROJECT_URL}/api/entries?trending=true&limit=${limit}`,
-    configCache()
-  );
+  let response: any = [];
 
-  if (!data.ok) {
-    return new Promise<any>((resolve, reject) => resolve([]));
-  }
+  try {
+    const data = await fetch(
+      `${process.env.PROJECT_URL}/api/entries?trending=true&limit=${limit}`,
+      configCache()
+    );
 
-  return data.json();
+    if (!data.ok) {
+      return new Promise<any>((resolve, reject) => resolve([]));
+    }
+
+    response = await data.json();
+  } catch (error) {}
+  return response;
 };
 
 export default async function Trending({
@@ -41,11 +46,11 @@ export default async function Trending({
         </h2>
       )}
       <div className="md:grid md:gap-x-6 md:grid-cols-3 px-10  h-auto">
-        {data.map((elem: any, idx: number) => (
+        {/* {data.map((elem: any, idx: number) => (
           <span key={elem._id}>
             <TrendingCard elem={elem} idx={idx} />
           </span>
-        ))}
+        ))} */}
       </div>
     </div>
   );
