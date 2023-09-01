@@ -8,20 +8,15 @@ import {
 import { configCache } from "@/lib/api/helpers/connections";
 
 const getdata = async () => {
-  let info;
-  try {
-    const data = await fetch(
-      `${process.env.PROJECT_URL}/api/queue`,
-      configCache()
-    );
+  const data = await fetch(
+    `${process.env.PROJECT_URL}/api/queue`,
+    configCache()
+  );
 
-    if (!data.ok) {
-      return new Promise((resolve, reject) => resolve([]));
-    }
-    info = data.json();
-  } catch (error) {}
-
-  return info;
+  if (!data.ok) {
+    return new Promise((resolve, reject) => resolve([]));
+  }
+  return data.json();
 };
 
 const Queue = async () => {
