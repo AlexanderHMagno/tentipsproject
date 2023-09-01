@@ -1,15 +1,20 @@
 import { configCache } from "@/lib/api/helpers/connections";
+import connect from "@/lib/utils/db";
 import { CategoriesType } from "@/models/Categories";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
+import Categories from "@/models/Categories";
 
 export default async function HotCategories({ limit }: { limit: number }) {
-  const categories = await fetch(
-    `${process.env.PROJECT_URL}/api/categories?limit=${limit}`,
-    configCache(36000)
-  );
+  // const categories = await fetch(
+  //   `${process.env.PROJECT_URL}/api/categories?limit=${limit}`,
+  //   configCache(36000)
+  // );
 
-  const data = await categories.json();
+  // const data = await categories.json();
+  await connect();
+
+  const data = await Categories.find().limit(+limit);
 
   return (
     <>

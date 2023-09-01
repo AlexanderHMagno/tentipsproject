@@ -6,27 +6,36 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { configCache } from "@/lib/api/helpers/connections";
+import connect from "@/lib/utils/db";
+import Queue from "@/models/Queue";
 
 const getdata = async () => {
-  const data = await fetch(
-    `${process.env.PROJECT_URL}/api/queue`,
-    configCache()
-  );
+  // const data = await fetch(
+  //   `${process.env.PROJECT_URL}/api/queue`,
+  //   configCache()
+  // );
 
-  if (!data.ok) {
-    return new Promise((resolve, reject) => resolve([]));
-  }
-  return data.json();
+  // if (!data.ok) {
+  //   return new Promise((resolve, reject) => resolve([]));
+  // }
+  // return data.json();
+
+  await connect();
+  const posts = await Queue.find({ created: false });
+
+  return posts;
 };
 
-const Queue = async () => {
-  const data = await getdata();
+const Page = async () => {
+  const data: any = await getdata();
 
   return (
     <>
       <div className="w-full mb-96 mx-auto md:px-6 overflow-auto">
         <section className="">
-          <h2 className="mb-12 text-center text-3xl font-bold">Queue</h2>
+          <h2 className="mb-12 text-center text-3xl font-bold">
+            QueueComponent
+          </h2>
 
           <div className="">
             <Table className="w-full  text-base/3 border bg-white dark:bg-gray-800">
@@ -73,4 +82,4 @@ const Queue = async () => {
   );
 };
 
-export default Queue;
+export default Page;

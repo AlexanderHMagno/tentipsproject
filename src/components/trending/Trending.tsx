@@ -3,18 +3,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { parseISO, format } from "date-fns";
 import { HeartFilledIcon } from "@radix-ui/react-icons";
+import Entries from "@/models/Entries";
+import connect from "@/lib/utils/db";
 
 const getData = async (limit: number) => {
-  const data = await fetch(
-    `${process.env.PROJECT_URL}/api/entries?trending=true&limit=${limit}`,
-    configCache()
-  );
+  // const data = await fetch(
+  //   `${process.env.PROJECT_URL}/api/entries?trending=true&limit=${limit}`,
+  //   configCache()
+  // );
 
-  if (!data.ok) {
-    return new Promise<any>((resolve, reject) => resolve([]));
-  }
+  // if (!data.ok) {
+  //   return new Promise<any>((resolve, reject) => resolve([]));
+  // }
 
-  return data.json();
+  // return data.json();
+  await connect();
+  return await Entries.find()
+    .select("-content")
+    .sort({ likes: "desc" })
+    .limit(limit);
 };
 
 export default async function Trending({
@@ -52,7 +59,8 @@ export default async function Trending({
 }
 
 function TrendingCard({ elem, idx }: { elem: any; idx: number }) {
-  const date = parseISO(elem.createdAt);
+  // const date = parseISO(elem.createdAt.toString());
+  // console.log(elem.createdAt, date);
   return (
     <div className="flex align-baseline md:block mb-5 pb-2 lg:mb-10 border-b-slate-50 dark:border-gray-900 border-b-2 sm:border-b-0">
       <div>
@@ -65,9 +73,7 @@ function TrendingCard({ elem, idx }: { elem: any; idx: number }) {
               <h3 className="font-bold">{elem.title}</h3>
               <div>
                 <span className="text-xs lg:text-sm flex">
-                  <time dateTime={elem.createdAt}>
-                    {format(date, "LLLL d")}
-                  </time>
+                  <time dateTime={elem.createdAt}></time>
                   <span className="flex items-center ml-5">
                     {elem.likes} <HeartFilledIcon className="text-brand" />
                   </span>
