@@ -48,8 +48,8 @@ export default function Cardlogin() {
               onClick={() => signIn("facebook")}
             >
               <Icons.facebook className="mr-2 h-5 w-5  justify-self-start col-span-3" />
-              <span className="col-span-8 text-left">
-                Sign in with Facebook
+              <span className="col-span-8 text-left whitespace-nowrap">
+                Sign in with Facebook (soon)
               </span>
             </Button>
           </div>

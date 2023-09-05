@@ -56,8 +56,8 @@ export default function AddSubComment({
       </div>
 
       {open && (
-        <div className="w-[90%] m-auto">
-          <Comments id={id} />
+        <div className="w-[95%] mx-2 m-auto">
+          <Comments id={id} initial={false} />
         </div>
       )}
     </div>

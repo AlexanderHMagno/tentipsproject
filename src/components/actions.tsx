@@ -19,7 +19,7 @@ export default function ActionsComponent({ id }: { id: string }) {
           <KeyboardIcon className="w-[20px] h-[20px] mr-10" />
         </SheetTrigger>
         <SheetContent className="bg-white dark:bg-black h-[100vh]">
-          <Comments id={id} />
+          <Comments id={id} initial={true} />
         </SheetContent>
       </Sheet>
       <ShowLove id={id} />
