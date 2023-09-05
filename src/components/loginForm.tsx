@@ -45,7 +45,7 @@ export default function Cardlogin() {
             <Button
               variant="outline"
               className="w-full px-2  rounded-full grid grid-cols-12 gap-6"
-              onClick={() => signIn("google")}
+              onClick={() => signIn("facebook")}
             >
               <Icons.facebook className="mr-2 h-5 w-5  justify-self-start col-span-3" />
               <span className="col-span-8 text-left">

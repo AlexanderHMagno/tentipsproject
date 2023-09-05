@@ -26,10 +26,8 @@ interface props {
 }
 
 const getData = async (entry: string) => {
-  const data = await fetch(
-    `${process.env.PROJECT_URL}/api/entries/${entry}`,
-    configCache(360000)
-  );
+  const url = `/api/entries/${entry}`;
+  const data = await fetch(url, configCache(360000));
 
   if (!data.ok) return notFound();
   const entries = data.json();
