@@ -31,7 +31,13 @@ export default function Menu() {
       auth: true,
       bigScreen: false,
     },
-    // { id: 4, title: "Compose", path: "/blog/create", auth: authenticated, bigScreen: true },
+    {
+      id: 5,
+      title: "About Us",
+      path: "/about",
+      auth: true,
+      bigScreen: true,
+    },
     // { id: 5, title: "Queue", path: "/blog/queue", auth: authenticated, bigScreen: true },
     // { id: 6, title: "Community  ", path: "/community", auth: authenticated, bigScreen: true },
   ];
