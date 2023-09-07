@@ -17,7 +17,7 @@ export default async function BannerCategories() {
 
   return (
     <div className=" w-full bg-white dark:bg-black ">
-      <ul className=" z-10 w-full md:w-[80%] m-auto  hover:pb-5 opacity-100 md:opacity-30 ease-in md:duration-1000 hover:opacity-100 hover:text-black dark:hover:text-white flex overflow-hidden hover:overflow-scroll   text-gray-400">
+      <ul className=" z-10 w-full md:w-[80%] m-auto  pb-4 opacity-100 md:opacity-30 ease-in md:duration-700 hover:opacity-100 hover:text-black dark:hover:text-white flex overflow-hidden hover:overflow-scroll   text-gray-400">
         {data.map((cat: CategoriesType, idx: number) => {
           return (
             <li className="text-xs ml-10 hover:text-brand" key={idx}>

@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-
+import Link from "next/link";
 import {
   Form,
   FormControl,
@@ -61,7 +61,14 @@ export default function CommentForm({
     form.reset();
   }
 
-  if (!session?.user) return <h1>Login For adding a comment</h1>;
+  if (!session?.user)
+    return (
+      <Link href="/admin/login">
+        <h1 className="py-2 px-5 border-2 rounded-full text-center bg-brand text-white">
+          Login for adding a comment
+        </h1>
+      </Link>
+    );
 
   return (
     <Form {...form}>

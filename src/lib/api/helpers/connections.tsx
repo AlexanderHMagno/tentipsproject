@@ -6,6 +6,7 @@ interface config {
   method?: string;
   headers?: any;
   body?: any;
+  cache?: string;
 }
 export const configCache = (timer = 3600, additional?: config) => {
   let config: any = { ...additional };

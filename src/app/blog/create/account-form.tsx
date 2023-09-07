@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import useSWR from "swr";
+import { Icons } from "@/components/icons";
 
 import { Button } from "@/components/ui/button";
 
@@ -18,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const accountFormSchema = z.object({
   solicitude: z
@@ -45,6 +47,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export function AccountForm() {
   const [result, setResult] = useState("");
+  const router = useRouter();
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
 
   const {
@@ -79,7 +82,8 @@ export function AccountForm() {
           new Error(`Request failed with status ${response.status}`)
         );
       }
-      setResult(data.result);
+
+      return router.push(`/blog/${data.result}`);
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -135,7 +139,14 @@ export function AccountForm() {
             type="submit"
             disabled={submitLoading}
           >
-            {submitLoading ? "Loading" : "Generate Topic"}
+            {submitLoading ? (
+              <span>
+                <Icons.spinner className="animate-spin" />
+                Loading
+              </span>
+            ) : (
+              "Generate Topic"
+            )}
           </Button>
         </form>
       </Form>

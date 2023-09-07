@@ -160,7 +160,7 @@ export async function generateEntryFromInput(
     const lowerTags = tags.map((elem: string) => elem.toLowerCase());
 
     //Add entry to the database
-    await Entries.create({
+    const newEntrie = await Entries.create({
       title,
       desc: short,
       img: imageUrl,
@@ -179,7 +179,7 @@ export async function generateEntryFromInput(
     await Categories.findOneAndUpdate({ title: category }, { group: merger });
 
     //return this content
-    return content;
+    return newEntrie._id.toString();
   } catch (e) {
     //If anything fails we are going to see this in the vercel logs area
     console.log(e);
