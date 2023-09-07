@@ -6,15 +6,17 @@ import Trending from "@/components/trending/Trending";
 import HotCategories from "@/components/categoriesHot";
 import Entries from "@/models/Entries";
 import connect from "@/lib/utils/db";
+import { notFound } from "next/navigation";
 
 const getData = async () => {
-  await connect();
+  try {
+    const url = `${process.env.PROJECT_URL}/api/entries`;
+    const data = await fetch(url, configCache(3600));
 
-  return await Entries.find()
-    .select("-content")
-    .sort({ createdAt: "desc" })
-    .limit(40)
-    .skip(0);
+    return data.json();
+  } catch (e) {
+    return [];
+  }
 };
 
 export default async function Blog() {
