@@ -159,6 +159,10 @@ export async function generateEntryFromInput(
     const content = completion.data.choices[0].text?.trim();
     const lowerTags = tags.map((elem: string) => elem.toLowerCase());
 
+    if (!author.trim()) {
+      author = await generateAuthor(category);
+    }
+
     //Add entry to the database
     const newEntrie = await Entries.create({
       title,
@@ -212,13 +216,9 @@ export async function generateNewEntryToQueue(data: any): Promise<string> {
 
         const content = completion.data.choices[0].text?.trim();
         const inputs = removeNumbers(content + "").split("\n");
-        const cat: any = await Categories.findOne({ title: category });
 
         inputs?.map(async (topic: string) => {
-          let author = userCreators[getRandomInt(userCreators.length)];
-          if (cat.writters) {
-            author = cat.writters[getRandomInt(cat.writters.length)];
-          }
+          const author = await generateAuthor(category);
           const createQueue = await Queue.create({
             title: topic,
             category: category,
@@ -233,4 +233,18 @@ export async function generateNewEntryToQueue(data: any): Promise<string> {
       return reject("Not Created");
     }
   });
+}
+
+/**
+ * Generate an author for an specific category
+ * */
+async function generateAuthor(category: string) {
+  const cat: any = await Categories.findOne({ title: category });
+
+  let author = userCreators[getRandomInt(userCreators.length)];
+  if (cat.writters) {
+    author = cat.writters[getRandomInt(cat.writters.length)];
+  }
+
+  return author;
 }

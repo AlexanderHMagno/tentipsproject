@@ -18,8 +18,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { clearInterval } from "timers";
+import { Badge } from "@/components/ui/badge";
 
 const accountFormSchema = z.object({
   solicitude: z
@@ -31,7 +33,6 @@ const accountFormSchema = z.object({
       message: "Name must not be longer than 50 characters.",
     }),
   category: z.string(),
-  author: z.string(),
 });
 
 type AccountFormValues = z.infer<typeof accountFormSchema>;
@@ -40,15 +41,22 @@ type AccountFormValues = z.infer<typeof accountFormSchema>;
 const defaultValues: Partial<AccountFormValues> = {
   // solicitude: "Your solicitude",
   category: "Animals",
-  author: "64dc060418039d6d54c2a236",
 };
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export function AccountForm() {
   const [result, setResult] = useState("");
+  const [progression, setProgress] = useState(25);
   const router = useRouter();
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (submitLoading) {
+      const timer = setTimeout(() => setProgress(progression - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [submitLoading, progression]);
 
   const {
     data: categories,
@@ -86,10 +94,7 @@ export function AccountForm() {
       return router.push(`/blog/${data.result}`);
     } catch (error) {
       // Consider implementing your own error handling logic here
-      console.error(error);
-      //   alert(error.message);
     }
-    setSubmitLoading(false);
   }
 
   if (isLoading) return <h1>Loading</h1>;
@@ -135,12 +140,12 @@ export function AccountForm() {
           />
 
           <Button
-            className="bg-orange-400 w-full hover:bg-orange-600"
+            className="bg-brand w-full hover:bg-orange-600"
             type="submit"
             disabled={submitLoading}
           >
             {submitLoading ? (
-              <span>
+              <span className="flex">
                 <Icons.spinner className="animate-spin" />
                 Loading
               </span>
@@ -152,6 +157,16 @@ export function AccountForm() {
       </Form>
 
       <div dangerouslySetInnerHTML={{ __html: result }}></div>
+      {submitLoading && (
+        <div className="w-full m-auto text-center">
+          <span className="">
+            Article will be ready in :{" "}
+            <Badge variant={"outline"} className="text-bold bg-brand">
+              {progression} seg
+            </Badge>
+          </span>
+        </div>
+      )}
     </>
   );
 }

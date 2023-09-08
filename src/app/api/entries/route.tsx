@@ -41,11 +41,8 @@ export const POST = async (request: Request) => {
 
     const data = await request.json();
 
-    const {
-      solicitude,
-      category,
-      author,
-    }: { solicitude: string; category: string; author: string } = data;
+    const { solicitude, category }: { solicitude: string; category: string } =
+      data;
 
     if (solicitude.trim().length === 0) {
       return new NextResponse(
@@ -54,7 +51,7 @@ export const POST = async (request: Request) => {
       );
     }
 
-    const result = await generateEntryFromInput(solicitude, category, author);
+    const result = await generateEntryFromInput(solicitude, category);
 
     return new NextResponse(JSON.stringify({ result }), { status: 200 });
   } catch (error: any) {
