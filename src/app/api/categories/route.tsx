@@ -15,6 +15,8 @@ export const GET = async (request: NextRequest) => {
       categories = await Categories.find().sort("title");
     }
 
+    if (!categories) throw new Error("Not found");
+
     return new NextResponse(JSON.stringify(categories), { status: 200 });
   } catch (error) {
     return new NextResponse(JSON.stringify("Not working"), { status: 400 });
