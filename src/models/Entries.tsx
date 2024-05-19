@@ -11,6 +11,10 @@ const EntriesSchema = new Schema(
       type: String,
       required: true,
     },
+    slug: {
+      type: String,
+      required: false,
+    },
     img: {
       type: String,
       required: false,

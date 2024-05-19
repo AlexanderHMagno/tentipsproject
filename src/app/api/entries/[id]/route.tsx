@@ -2,11 +2,12 @@ import connect from "@/lib/utils/db";
 import { NextResponse } from "next/server";
 import Entries from "@/models/Entries";
 import { generateIMAGE } from "@/app/api/apiFunctions";
+import slugify from "slugify";
 
 export const GET = async (request: Request, { params }: any) => {
   try {
     await connect();
-    const posts = await Entries.findById(params.id);
+    const posts = await Entries.findOne({ slug: params.id });
     return new NextResponse(JSON.stringify(posts), { status: 200 });
   } catch (error) {
     return new NextResponse(JSON.stringify("Not working"), { status: 400 });
@@ -30,11 +31,13 @@ export const PATCH = async (request: Request, { params }: any) => {
 };
 
 const updateContent = async (data: any) => {
-  const { _id, title, content, category } = data || {};
+  const { _id, title, content, category, slug } = data || {};
+
   return await Entries.findByIdAndUpdate(_id, {
     title,
     content,
     category,
+    slug: slugify(title, "-"),
   });
 };
 

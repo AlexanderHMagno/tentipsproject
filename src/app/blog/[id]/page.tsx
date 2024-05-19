@@ -11,6 +11,7 @@ import { WritterArea } from "@/components/writterArea";
 import EditEntry from "@/components/auth/editEntry";
 import Actions from "@/components/actions";
 import { configCache } from "@/lib/api/helpers/connections";
+import slugify from "slugify";
 
 interface props {
   title: string;
@@ -44,6 +45,8 @@ export async function generateMetadata(
 
   // fetch data
   const data: props = await getData(id);
+
+  console.log("slugify", slugify(data.title, "-"));
 
   return {
     title: data.title,

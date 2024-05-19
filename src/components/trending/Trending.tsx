@@ -64,7 +64,7 @@ function TrendingCard({ elem, idx }: { elem: any; idx: number }) {
   return (
     <div className="flex align-baseline md:block mb-5 pb-2 lg:mb-10 border-b-slate-50 dark:border-gray-900 border-b-2 sm:border-b-0">
       <div>
-        <Link href={`/blog/${elem._id}`}>
+        <Link href={`/blog/${elem.slug}`}>
           <div className="flex text-left">
             <span className="text-3xl  opacity-80 mr-7 text-gray-300">
               {idx + 1}
