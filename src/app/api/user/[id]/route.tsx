@@ -6,7 +6,12 @@ export const GET = async (request: Request, { params }: any) => {
   try {
     await connect();
 
-    const user = await Writters.findById(params.id);
+    let user = await Writters.findById(params.id);
+
+    if (!user) {
+      //Default owner
+      user = await Writters.findById("64dc060418039d6d54c2a236");
+    }
 
     return new NextResponse(JSON.stringify(user), { status: 200 });
   } catch (error) {

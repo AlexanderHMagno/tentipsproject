@@ -61,6 +61,8 @@ export async function generateMetadata(
 const Blog = async ({ params }: any) => {
   const data = await getData(params.id);
 
+  if (!data) return <h1>Not found</h1>;
+
   const {
     _id,
     title,
@@ -71,6 +73,7 @@ const Blog = async ({ params }: any) => {
     tags,
     createdAt,
     author = "64dc060418039d6d54c2a236",
+    slug,
   } = data;
 
   const date = parseISO(createdAt);
@@ -89,7 +92,7 @@ const Blog = async ({ params }: any) => {
             <time dateTime={createdAt}>{format(date, "LLLL d, yyyy")}</time>
           </span>
 
-          <EditEntry id={_id} />
+          <EditEntry id={slug} />
         </div>
 
         <div className="border-y-2 border-gray-50 dark:border-gray-900 py-2 w-full my-2 flex justify-center h-10">
