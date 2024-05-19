@@ -41,7 +41,7 @@ export default function EntryCard({
       </div>
 
       <div className="ml-5 md:ml-0  md:w-full text-left flex-grow">
-        <Link href={`/blog/${elem._id}`}>
+        <Link href={`/blog/${elem.slug}`}>
           <h5 className="mb-4 text-base/7 font-bold leading-5">{elem.title}</h5>
         </Link>
         <div className="hidden sm:flex mb-4  text-xs  dark:text-danger-500 lg:justify-start">

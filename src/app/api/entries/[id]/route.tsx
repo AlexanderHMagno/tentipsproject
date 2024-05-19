@@ -8,6 +8,8 @@ export const GET = async (request: Request, { params }: any) => {
   try {
     await connect();
     const posts = await Entries.findOne({ slug: params.id });
+    if (!posts) throw new Error("Not Found");
+
     return new NextResponse(JSON.stringify(posts), { status: 200 });
   } catch (error) {
     return new NextResponse(JSON.stringify("Not working"), { status: 400 });

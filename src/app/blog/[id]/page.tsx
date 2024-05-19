@@ -46,8 +46,6 @@ export async function generateMetadata(
   // fetch data
   const data: props = await getData(id);
 
-  console.log("slugify", slugify(data.title, "-"));
-
   return {
     title: data.title,
     category: data.tags.join(","),
