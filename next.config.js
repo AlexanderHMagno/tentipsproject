@@ -3,11 +3,27 @@
 }
 const nextConfig = {
   images: {
-    domains: [
-      "pixabay.com",
-      "oaidalleapiprodscus.blob.core.windows.net",
-      "10tips-images.s3.us-west-1.amazonaws.com",
-      "lh3.googleusercontent.com",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "pixabay.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "oaidalleapiprodscus.blob.core.windows.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "10tips-images.s3.us-west-1.amazonaws.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
     ],
   },
   webpack: (config) => {

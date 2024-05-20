@@ -70,7 +70,8 @@ export default function Home({ params }: any) {
     isLoading: isLoadingCat,
   } = useSWR(`${process.env.NEXT_PUBLIC_PROJECT_URL}/api/categories`, fetcher);
 
-  const { title, _id, img, imageUser, content, tags, category } = data || {};
+  const { title, _id, img, imageUser, content, tags, category, slug } =
+    data || {};
   const [titleHolder, setTitleHolder] = useState(title);
   const [contentHolder, setContentHolder] = useState(content);
   const [categoriesHolder, setCategoriesHolder] = useState(category);
@@ -131,7 +132,7 @@ export default function Home({ params }: any) {
 
   return (
     <article className="mb-32 w-full max-w-4xl m-auto p-5">
-      <Link href={`../${_id}`}>
+      <Link href={`../${slug}`}>
         <button className="float-right ml-5 mb-10 py-2 px-5 text-1xl rounded-full bg-orange-500">
           Back
         </button>
