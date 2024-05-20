@@ -11,6 +11,8 @@ export const GET = withDbConnect(async (request: Request, { params }: any) => {
       $or: [{ category: params.slug }, { tags: params.slug }],
     }).sort("title");
 
+    if (!posts) throw new Error("Post werw not found");
+
     return new NextResponse(JSON.stringify(posts), { status: 200 });
   } catch (error) {
     return new NextResponse(JSON.stringify("Not working"), { status: 400 });
