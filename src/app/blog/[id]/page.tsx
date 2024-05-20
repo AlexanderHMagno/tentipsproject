@@ -102,7 +102,7 @@ const Blog = async ({ params }: any) => {
               src={`${process.env.NEXT_PUBLIC_AWS_S3_BLOG_IMAGES_URL}${img}`}
               width={1300}
               height={630}
-              priority
+              priority={true}
               className={`shadow-sm w-full max-w-full z-0 ${styles.picturepost}`}
               alt={`image of ${tags.join(", ")} `}
               placeholder="blur"
